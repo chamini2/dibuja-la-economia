@@ -1,19 +1,10 @@
 *
   box-sizing: border-box
 
-@import "../bower_components/normalize-css/normalize.css"
-@import "fonts.css"
-@import "variables"
 @import "icons"
-@import "globals"
-
-@import "header"
 @import "graphic"
-@import "breadcrumb"
-@import "footer"
 
 body
-  background: url('../images/landtagswahl-bg.jpg') fixed
   background-size: cover
 
 #content
@@ -26,7 +17,6 @@ body
 
 .category
   overflow: hidden
-  background: url('../images/wahlkreuz.png') no-repeat 60% center
   background-size: auto 80%
 
   a
@@ -42,7 +32,6 @@ body
       text-decoration: underline
 
 .intro
-  max-width: $max-width * 0.5
   text-align: center
   margin: 0 auto 80px auto
 
@@ -54,7 +43,6 @@ body
 
 .question
   h2, h3
-    max-width: $max-width * 0.8
     margin: 10px auto
     text-align: center
 
@@ -80,7 +68,7 @@ body
         margin: 20px auto
         padding: 10px 15px
         border: none
-        background: $wdr-blue
+        background: blue
         color: white
         font-size: 20px
         cursor: pointer
@@ -110,7 +98,6 @@ body
           white-space: nowrap
 
     .text
-      max-width: $max-width * 0.5
       margin: 10px auto
       visibility: hidden
       text-align: center
@@ -180,15 +167,3 @@ body
 .updatedAt
   margin-top: 20px
   text-align: right
-
-@media (max-width: $bp-md)
-  .container
-    padding-left: 10px
-    padding-right: 10px
-
-@media (max-width: $bp-sm)
-  .you-draw-it
-    margin: 0 -30px
-
-  .question .result.finished .tooltipcontainer
-    display: none

@@ -12,18 +12,16 @@
 
   #gradient-black
     .start
-      stop-color: $black
-      stop-opacity: $gradient-opacity
+      stop-color: black
     .end
-      stop-color: $black
+      stop-color: black
       stop-opacity: 0
 
   #gradient-red
     .start
-      stop-color: $red
-      stop-opacity: $gradient-opacity
+      stop-color: red
     .end
-      stop-color: $red
+      stop-color: red
       stop-opacity: 0
 
   .axis
@@ -38,10 +36,10 @@
     stroke-width: 3
 
     &.black
-      stroke: $black
+      stroke: black
 
     &.red
-      stroke: $red
+      stroke: red
 
   .dots
     circle
@@ -51,10 +49,10 @@
         cursor: pointer
 
       &.black
-        fill: $black
+        fill: black
 
       &.red
-        fill: $red
+        fill: red
 
   .labels
     @include fulllayer
@@ -97,24 +95,24 @@
 
       &.black
         span
-          background-color: $black
+          background-color: black
         &:after
-          border-top-color: $black
+          border-top-color: black
 
       &.red
         span
-          background-color: $red
+          background-color: red
         &:after
-          border-top-color: $red
+          border-top-color: red
 
       &.your-result
         position: absolute
         z-index: 1
 
         span
-          background-color: $wdr-blue
+          background-color: blue
         &:after
-          border-top-color: $wdr-blue
+          border-top-color: blue
 
   .titles
     @include fulllayer
@@ -163,7 +161,7 @@
     fill: none
 
   .your-line
-    stroke: $wdr-blue
+    stroke: blue
 
   .preview-line
     opacity: 0

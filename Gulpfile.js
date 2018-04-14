@@ -7,7 +7,6 @@ const yaml = require('js-yaml');
 const markdownIt = require('markdown-it')();
 const marked = require('marked');
 const cssUrlParser = require('css-url-parser');
-const ftp = require('vinyl-ftp');
 const imageminJpegoptim = require('imagemin-jpegoptim');
 const critical = require('critical').stream;
 const _ = require('lodash');
@@ -86,26 +85,8 @@ gulp.task('html', ['styles', 'templates'], function() {
         .pipe(gulp.dest(dist));
 });
 
-const dlFonts = function(dest) {
-    const urls = cssUrlParser(fs.readFileSync('styles/fonts.css').toString())
-        .filter(pathStr => !fs.existsSync(path.join(dest, pathStr)))
-        .map(urlStr => url.resolve("http://www1.wdr.de/resources/fonts/", urlStr));
 
-    if(urls.length == 0) {
-        return gulp.src([]);
-    }
-
-    return $.download(urls)
-        .pipe(gulp.dest(dest));
-};
-gulp.task('fonts', function() {
-    return dlFonts(path.join(dist, 'fonts'));
-});
-gulp.task('fonts:develop', function() {
-    return dlFonts('fonts');
-});
-
-gulp.task('serve', ['fonts:develop', 'styles', 'templates'], function() {
+gulp.task('serve', ['styles', 'templates'], function() {
     browserSync.init({
       server: {
           baseDir: ['.tmp', "./"]
@@ -119,18 +100,6 @@ gulp.task('serve', ['fonts:develop', 'styles', 'templates'], function() {
     gulp.watch('styles/*.sass', ['styles', browserSync.reload]);
 });
 
-gulp.task('images', function() {
-    return gulp.src('images/**/*')
-        .pipe($.imagemin([
-            imageminJpegoptim({ max: 70 }),
-            $.imagemin.optipng({optimizationLevel: 5}),
-            $.imagemin.svgo({plugins: [{removeViewBox: true}]})
-        ], {
-            verbose: true
-        }))
-        .pipe(gulp.dest(path.join(dist, 'images')));
-});
-
 gulp.task('copy:dist', function() {
     return gulp.src([
         'bower_components/jquery/dist/jquery.min.js',
@@ -139,7 +108,7 @@ gulp.task('copy:dist', function() {
         .pipe(gulp.dest(dist));
 });
 
-gulp.task('assets', ['images', 'fonts', 'html', 'copy:dist']);
+gulp.task('assets', ['html', 'copy:dist']);
 
 gulp.task('critical-css', ['assets'], function() {
     return gulp.src(path.join(dist, 'index.html'))
@@ -152,17 +121,5 @@ gulp.task('critical-css', ['assets'], function() {
 });
 
 gulp.task('build', ['assets', 'critical-css']);
-
-gulp.task('upload', ['build'], function() {
-    const conn = ftp.create({
-        host: process.env.FTP_HOST,
-        user: process.env.FTP_USER,
-        pass: process.env.FTP_PASS,
-        log: $.util.log
-    });
-
-    return gulp.src([path.join(dist, '**'), '.htaccess']/*, { buffer: false }*/)
-        .pipe(conn.dest('/'));
-});
 
 gulp.task('default', ['build']);

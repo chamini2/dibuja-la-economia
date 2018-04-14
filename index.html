@@ -1,17 +1,10 @@
 <!DOCTYPE html>
-<html lang="de" prefix="og: http://ogp.me/ns#">
+<html lang="de">
 <head>
     <title>Was schätzen Sie?</title>
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, minimum-scale=1.0"/>
-    <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-
 </head>
 <body>
 <article id="content" class="container">
@@ -25,7 +18,9 @@
                 <div class="actionContainer">
                     <button class="showAction" disabled>Wie war's tatsächlich?</button>
                     <div class="tooltipcontainer">
-                        <span class="tooltiptext">Zeichnen Sie Ihre Einschätzung. Der Klick verrät, ob sie stimmt.</span>
+                        <span class="tooltiptext">
+                          Zeichnen Sie Ihre Einschätzung. Der Klick verrät, ob sie stimmt.
+                        </span>
                     </div>
                 </div>
                 <div class="text">{{ question.result|md }}</div>
@@ -41,9 +36,6 @@
 </article>
 
 <script src="bower_components/d3/d3.min.js"></script>
-<!-- build:js app.js -->
 <script src="app.js"></script>
-<!-- endbuild -->
-
 </body>
 </html>
