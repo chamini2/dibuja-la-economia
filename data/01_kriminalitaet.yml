@@ -1,24 +1,34 @@
-heading: Kriminalität in NRW 2005-2016
-subheading: Wie hat sich die Zahl aller bei der Polizei bekannt gewordenen Fälle entwickelt?
+heading: Insolvenzen in Brandenburg
+subheading: Wie hat sich die Anzahl der Insolvenzen in Brandenburg entwickelt?
 result: >
-        **Die Gesamtzahl der Kriminalfälle hat sich seit 2005 kaum verändert.** Die Zahl der Fälle liegt seit 2005 bei rund 1,5 Millionen pro Jahr.
-        In der polizeilichen Kriminalstatistik werden alle bei der Polizei gemeldeten Straftaten erfasst, einschließlich versuchter Straftaten.
-
-        [Kriminalstatistik: So groß sind die Unterschiede in Deutschland | **mehr**](http://www1.wdr.de/nachrichten/landespolitik/landtagswahl/wss-kriminalitaet-100.html)
-
+        **Die Anzahl der Insolvenzen hat sich seit 1992 signifikant verändert**
+        Die Zahl der Insolvenzen ist von 1992 bis 2007 stark angestiegen und
+        seitdem wieder leicht rückläufig.
 data:
-  2005: 1.503451
-  2006: 1.491897
-  2007: 1.495333
-  2008: 1.453203
-  2009: 1.458438
-  2010: 1.442801
-  2011: 1.511469
-  2012: 1.518363
-  2013: 1.484943
-  2014: 1.501125
-  2015: 1.517448
-  2016: 1.469426
-accessibility: http://www1.wdr.de/nachrichten/landespolitik/landtagswahl/wss-kriminalitaet-barrierefrei-104.html
-unit: Mio.
-precision: 2
+  1992: 128
+  1993: 366
+  1994: 806
+  1995: 1101
+  1996: 1399
+  1997: 1425
+  1998: 1598
+  1999: 1522
+  2000: 1869
+  2001: 2091
+  2002: 3276
+  2003: 3378
+  2004: 4185
+  2005: 4903
+  2006: 6020
+  2007: 6776
+  2008: 5980
+  2009: 6287
+  2010: 6130
+  2011: 5759
+  2012: 5325
+  2013: 4972
+  2014: 4686
+  2015: 4167
+  2016: 3969
+unit: Ins.
+precision: 0
