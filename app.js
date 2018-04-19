@@ -83,8 +83,8 @@ d3.selectAll('.you-draw-it').each(function() {
       .attr('y1', '0%')
       .attr('x2', '0%')
       .attr('y2', '100%');
-    gradient.append('stop').attr('offset', '0%').attr('class', 'start');
-    gradient.append('stop').attr('offset', '100%').attr('class', 'end');
+    gradient.append('stop').attr('offset', '50%').attr('class', 'start');
+    gradient.append('stop').attr('offset', '100%').attr('class', 'start');
   });
 
   c.defs.append('marker')
@@ -283,6 +283,7 @@ d3.selectAll('.you-draw-it').each(function() {
       );
     }
 
+    // TODO
     // scale on y axis
     c.axis.append('text')
       .text("0")

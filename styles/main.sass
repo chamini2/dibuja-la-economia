@@ -5,40 +5,15 @@
 
 body
   background-size: cover
+  font-family: mono
 
 #content
   overflow: hidden
 
   &.container
-    padding: 50px 30px 20px 30px
+    padding: 50px 50px 20px 30px
     margin: 0 auto
     background: white
-
-.category
-  overflow: hidden
-  background-size: auto 80%
-
-  a
-    display: block
-    text-decoration: none
-    padding: 10px 0
-    margin: 30px 0 20px 0
-    color: white
-    font-weight: bold
-    font-size: 20px
-
-    &:hover
-      text-decoration: underline
-
-.intro
-  text-align: center
-  margin: 0 auto 80px auto
-
-  h1
-    font-size: 35px
-
-  p
-    line-height: 1.6
 
 .question
   h2, h3
@@ -47,10 +22,6 @@ body
 
   h2
     font-size: 24px
-
-  .accessibility
-    margin: 20px 0 10px 0
-    text-align: right
 
   .result
     position: relative
@@ -67,7 +38,7 @@ body
         margin: 20px auto
         padding: 10px 15px
         border: none
-        background: blue
+        background: #0D47A1
         color: white
         font-size: 20px
         cursor: pointer
@@ -77,24 +48,8 @@ body
           background: #ccc
           cursor: not-allowed
 
-      .tooltipcontainer
-        display: none
-        left: 50%
-        position: absolute
-        opacity: 0
-        padding-top: 7px
-
-        .tooltiptext
-          position: relative
-          background-color: #555
-          color: #fff
-          text-align: center
-          border-radius: 6px
-          padding: 8px 12px
-          z-index: 1
-          left: -50%
-          transition: opacity 1s
-          white-space: nowrap
+        &:hover
+          background-color: #1565C0
 
     .text
       margin: 10px auto
@@ -133,36 +88,5 @@ body
       .text
         visibility: visible
 
-  .tooltiptext::after
-    	bottom: 100%
-    	left: 50%
-    	border: solid transparent
-    	content: " "
-    	height: 0
-    	width: 0
-    	position: absolute
-    	pointer-events: none
-    	border-color: rgba(136, 183, 213, 0)
-    	border-bottom-color: #555
-    	border-width: 15px
-    	margin-left: -15px
-
   .showAction:hover + .tooltipcontainer
       opacity: 1
-
-.credits
-  h3, h4
-    margin: 30px 0 10px 0
-
-  p
-    margin: 0 0 5px 0
-
-  a
-    display: block
-
-  p + a
-    margin-bottom: 20px
-
-.updatedAt
-  margin-top: 20px
-  text-align: right

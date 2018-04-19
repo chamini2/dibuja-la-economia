@@ -6,22 +6,23 @@
   right: 0
 
 .you-draw-it
-  // margin: 30px 0 20px 0
   position: relative
 
   #gradient-black
     .start
-      stop-color: black
+      stop-color: #BDBDBD
+      stop-opacity: 0.3
     .end
-      stop-color: black
-      stop-opacity: 0
+      stop-color: #BDBDBD
+      stop-opacity: 0.3
 
   #gradient-red
     .start
-      stop-color: red
+      stop-color: #BDBDBD
+      stop-opacity: 0.3
     .end
-      stop-color: red
-      stop-opacity: 0
+      stop-color: #BDBDBD
+      stop-opacity: 0.3
 
   .axis
     opacity: .5
@@ -37,7 +38,7 @@
       stroke: black
 
     &.red
-      stroke: red
+      stroke: #e80000
 
   .dots
     circle
@@ -50,7 +51,7 @@
         fill: black
 
       &.red
-        fill: red
+        fill: #e80000
 
   .labels
     @include fulllayer
@@ -72,6 +73,7 @@
         line-height: 16px
         white-space: nowrap
         font-weight: bold
+        border: 1px solid white
 
       &.edge-left span
         left: -10px
@@ -90,6 +92,7 @@
         border-color: rgba(136, 183, 213, 0)
         border-width: 12px 6px
         margin-left: -6px
+        margin-top: -4px
 
       &.black
         span
@@ -99,18 +102,18 @@
 
       &.red
         span
-          background-color: red
+          background-color: #e80000
         &:after
-          border-top-color: red
+          border-top-color: #e80000
 
       &.your-result
         position: absolute
         z-index: 1
 
         span
-          background-color: blue
+          background-color: #0D47A1
         &:after
-          border-top-color: blue
+          border-top-color: #0D47A1
 
   .titles
     @include fulllayer
@@ -159,7 +162,7 @@
     fill: none
 
   .your-line
-    stroke: blue
+    stroke: #0D47A1
 
   .preview-line
     opacity: 0
