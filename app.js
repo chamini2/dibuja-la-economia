@@ -98,8 +98,7 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr('d', 'M0,0 V4 L2,2 Z');
 
   // make background grid
-  c.grid = c.svg.append('g')
-    .attr('class', 'grid');
+  c.grid = c.svg.append('g').attr('class', 'grid');
 
   c.grid.append('g').attr('class', 'horizontal').call(
     d3.axisBottom(c.x)
@@ -124,6 +123,7 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr('width', c.x(maxYear) - c.x(medianYear))
     .attr('height', c.height)
     .attr('opacity', 0);
+
 
   setTimeout(() => {
     const clientRect = c.svg.node().getBoundingClientRect();
@@ -151,7 +151,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // configure axes
   c.xAxis = d3.axisBottom().scale(c.x);
-  c.xAxis.tickFormat(d => "'" + String(d).substr(2)).ticks(maxYear - minYear);
+  c.xAxis.tickFormat(d => String(d).substr(2)).ticks(maxYear - minYear);
   drawAxis(c);
 
   c.titles = sel.append('div')
@@ -162,12 +162,14 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr('class', 'controls')
     .call(applyMargin)
     .style('padding-left', c.x(medianYear) + 'px');
+
   c.controls.append('div')
     .attr('class', 'box')
     .text('Zeichnen Sie die Linie zu Ende');
 
   // make chart
   const charts = periods.map((entry, key) => {
+
     const lower = key > 0 ? periods[key - 1].year : minYear;
     const upper = entry.year;
 
@@ -180,7 +182,8 @@ d3.selectAll('.you-draw-it').each(function() {
     return drawChart(lower, upper, entry.class);
   });
 
-  const resultChart = charts[charts.length - 1][0];
+  const resultChart = charts[charts.length - 2][0];
+  const resultChart2 = charts[charts.length - 1][0];
 
   const resultClip = c.charts.append('clipPath')
     .attr('id', `result-clip-${key}`)
@@ -189,6 +192,7 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr('height', c.height);
 
   const resultLabel = charts[charts.length - 1].slice(1, 3);
+  const resultLabel2 = charts[charts.length - 2].slice(1, 3);
 
   resultChart.attr('clip-path', `url(#result-clip-${key})`)
     .append('rect')
@@ -196,7 +200,14 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr('height', c.height)
     .attr('fill', 'none');
 
+  resultChart2.attr('clip-path', `url(#result-clip-${key})`)
+    .append('rect')
+    .attr('width', c.width)
+    .attr('height', c.height)
+    .attr('fill', 'none');
+
   resultLabel.map(e => e.style('opacity', 0));
+  resultLabel2.map(e => e.style('opacity', 0));
 
 
   /**
@@ -271,15 +282,31 @@ d3.selectAll('.you-draw-it').each(function() {
         .tickSize(0)
       );
     }
-    // null auf y-achse
+
+    // scale on y axis
     c.axis.append('text')
       .text("0")
       .attr('transform', "translate(-15, " + (c.y(0)+5) + ")");
+
+    c.axis.append('text')
+      .text("2000")
+      .attr('transform', "translate(-40, " + (c.y(2000)+5) + ")");
+
+    c.axis.append('text')
+      .text("4000")
+      .attr('transform', "translate(-40, " + (c.y(4000)+5) + ")");
+
+    c.axis.append('text')
+      .text("6000")
+      .attr('transform', "translate(-40, " + (c.y(6000)+5) + ")");
+
+    c.axis.append('text')
+      .text("8000")
+      .attr('transform', "translate(-40, " + (c.y(8000)+5) + ")");
   }
 
-  // TODO
   function formatValue(val, defaultPrecision) {
-    const data = question.precision ?
+    const data = question.precision >= 0 ?
       Number(val).toFixed(question.precision) :
       defaultPrecision ? Number(val).toFixed(defaultPrecision) : val;
     return String(data).replace('.', ',') + (question.unit ? ' ' + question.unit : '');
@@ -351,7 +378,7 @@ d3.selectAll('.you-draw-it').each(function() {
       .style('top', r => c.y(r.value) + 'px')
       .html('')
       .append('span')
-      .text(r => formatValue(r.value, 1));
+      .text(r => formatValue(r.value, 0));
   }
 
   function clamp(a, b, c) {
@@ -405,6 +432,7 @@ d3.selectAll('.you-draw-it').each(function() {
     dragArea.attr('class', '');
     setTimeout(() => {
       resultLabel.map(e => e.style('opacity', 1));
+      resultLabel2.map(e => e.style('opacity', 1));
       resultSection.node().classList.add('shown');
     }, 700);
   }

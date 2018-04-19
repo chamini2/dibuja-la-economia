@@ -17,11 +17,6 @@
             <div class="result {{ question.key }}">
                 <div class="actionContainer">
                     <button class="showAction" disabled>Wie war's tatsächlich?</button>
-                    <div class="tooltipcontainer">
-                        <span class="tooltiptext">
-                          Zeichnen Sie Ihre Einschätzung. Der Klick verrät, ob sie stimmt.
-                        </span>
-                    </div>
                 </div>
                 <div class="text">{{ question.result|md }}</div>
             </div>
@@ -30,11 +25,8 @@
                 window.ydi_data['{{ question.key }}'] = {% autoescape false %}{{ question|json_encode }}{% endautoescape %};
             </script>
         </div>
-        {% endfor %}
     </div>
-
 </article>
-
 <script src="bower_components/d3/d3.min.js"></script>
 <script src="app.js"></script>
 </body>
