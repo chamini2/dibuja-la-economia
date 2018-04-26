@@ -30,7 +30,6 @@ d3.selectAll('.you-draw-it').each(function() {
     {year: Math.min(maxYear), class: 'red', title: "SPD + Die Linke"}
   ];
 
-  // const medianYear = periods[periods.length - 2].year;
   // position for starting to draw
   const medianYear = periods[periods.length - 3].year;
 
@@ -39,9 +38,6 @@ d3.selectAll('.you-draw-it').each(function() {
   const maxY = d3.max(data, d => d.value);
 
   const segmentBorders = [minYear].concat(periods.map(d => d.year));
-
-  // make visual area empty
-  // sel.html('');
 
   const margin = {
     top: 20,
@@ -75,6 +71,7 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr("height", c.height);
 
   // gradients
+  // TODO
   c.defs = d3.select(c.svg.node().parentNode).append('defs');
   ['black', 'red'].forEach(color => {
     const gradient = c.defs.append('linearGradient')
@@ -209,8 +206,7 @@ d3.selectAll('.you-draw-it').each(function() {
   resultLabel.map(e => e.style('opacity', 0));
   resultLabel2.map(e => e.style('opacity', 0));
 
-
-  /**
+  /*
   * Interactive user selection part
   */
   const userLine = d3.line().x(ƒ('year', c.x)).y(ƒ('value', c.y));
@@ -243,7 +239,6 @@ d3.selectAll('.you-draw-it').each(function() {
     const y = Math.min(Math.max(pos[1], c.y(graphMaxY)), c.y(graphMinY));
     c.preview.attr('y2', y);
   });
-
 
   /* functions */
   /*************/

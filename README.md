@@ -1,11 +1,8 @@
 # Getting started
-- [NodeJS](https://nodejs.org/)
-- Bower `npm install -g bower`
-- Gulp `npm install -g gulp`
-- Build-Tools `npm install`
-- Frontend-Libs `bower install`
+npm install
+bower install
 
-# Dev server
+# Start dev server
 ```
 gulp serve
 ```
