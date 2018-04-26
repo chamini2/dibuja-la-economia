@@ -7,8 +7,3 @@ npm install
 ```
 gulp serve
 ```
-
-# Build `dist/`
-```
-gulp build
-```
