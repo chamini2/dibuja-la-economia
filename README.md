@@ -1,6 +1,7 @@
 # Getting started
+```
 npm install
-bower install
+```
 
 # Start dev server
 ```
