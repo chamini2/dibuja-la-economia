@@ -162,7 +162,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   c.controls.append('div')
     .attr('class', 'box')
-    .text('Was schätzen Sie? Zeichnen Sie die Linie zu Ende');
+    .text('Zeichnen Sie die Linie zu Ende');
 
   // make chart
   const charts = periods.map((entry, key) => {
