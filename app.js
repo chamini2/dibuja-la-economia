@@ -68,7 +68,7 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr("width", c.width)
     .attr("height", c.height);
 
-  // gradients
+  // gradients (area below graph)
   c.defs = d3.select(c.svg.node().parentNode).append('defs');
   ['black', 'red'].forEach(color => {
     const gradient = c.defs.append('linearGradient')
@@ -80,6 +80,7 @@ d3.selectAll('.you-draw-it').each(function() {
     gradient.append('stop').attr('offset', '50%').attr('class', 'start');
   });
 
+  // add preview arrow
   c.defs.append('marker')
     .attr('id', 'preview-arrow')
     .attr('orient', 'auto')
@@ -98,7 +99,8 @@ d3.selectAll('.you-draw-it').each(function() {
       .tickValues(c.x.ticks(maxYear - minYear))
       .tickFormat("")
       .tickSize(c.height)
-    )
+    );
+    // lines to show segments
     .selectAll('line')
     .attr('class', (d, i) => segmentBorders.indexOf(d) !== -1 ? 'highlight' : '');
 
@@ -107,7 +109,7 @@ d3.selectAll('.you-draw-it').each(function() {
       .tickValues(c.y.ticks(6))
       .tickFormat("")
       .tickSize(-c.width)
-  );
+    );
 
   // invisible rect to make dragging work
   const dragArea = c.svg.append('rect')
@@ -260,17 +262,6 @@ d3.selectAll('.you-draw-it').each(function() {
       .attr("class", "x axis")
       .attr("transform", "translate(0," + c.height + ")")
       .call(c.xAxis);
-    // null axis
-    if (graphMinY < 0) {
-      c.axis.append('g')
-      .classed('nullaxis', true)
-      .attr("transform", "translate(0," + c.y(0) + ")")
-      .call(
-        d3.axisBottom(c.x)
-        .tickValues([])
-        .tickSize(0)
-      );
-    }
 
     // TODO
     // scale on y axis
@@ -332,6 +323,7 @@ d3.selectAll('.you-draw-it').each(function() {
     ];
   }
 
+  // draw premature chart
   function drawChart(lower, upper, addClass) {
     const definedFn = (d, i) => d.year >= lower && d.year <= upper;
     const area = d3.area().x(ƒ('year', c.x)).y0(ƒ('value', c.y)).y1(c.height).defined(definedFn);
@@ -372,7 +364,7 @@ d3.selectAll('.you-draw-it').each(function() {
   }
 
   function clamp(a, b, c) {
-    return Math.max(a, Math.min(b, c))
+    return Math.max(a, Math.min(b, c));
   }
 
   function interactionHandler() {
@@ -383,11 +375,11 @@ d3.selectAll('.you-draw-it').each(function() {
     const value = clamp(c.y.domain()[0], c.y.domain()[1], c.y.invert(pos[1]));
 
     state[key].yourData.forEach(d => {
-      if(d.year > medianYear) {
-        if(Math.abs(d.year - year) < .5) {
+      if (d.year > medianYear) {
+        if (Math.abs(d.year - year) < .5) {
           d.value = value;
         }
-        if(d.year - year < 0.5) {
+        if (d.year - year < 0.5) {
           d.defined = true
         }
       }
