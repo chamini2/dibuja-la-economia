@@ -17,8 +17,6 @@ d3.selectAll('.you-draw-it').each(function() {
     state[key] = {};
   }
 
-  const isMobile = window.innerWidth < 760;
-
   const minYear = data[0].year;
   const maxYear = data[data.length - 1].year;
 
@@ -41,9 +39,9 @@ d3.selectAll('.you-draw-it').each(function() {
 
   const margin = {
     top: 20,
-    right: isMobile ? 20 : 50,
+    right: 20,
     bottom: 20,
-    left: isMobile ? 20 : 50
+    left: 20
   };
 
   const width = sel.node().offsetWidth;
@@ -320,11 +318,11 @@ d3.selectAll('.you-draw-it').each(function() {
       .style('top', y + 'px');
     label.append('span').text(text);
 
-    if (pos == minYear && isMobile) {
+    if (pos == minYear) {
       label.classed('edge-left', true);
     }
 
-    if (pos == maxYear && isMobile) {
+    if (pos == maxYear) {
       label.classed('edge-right', true);
     }
 
@@ -368,7 +366,7 @@ d3.selectAll('.you-draw-it').each(function() {
     yourResult.enter()
       .append('div')
       .classed('data-label your-result', true)
-      .classed('edge-right', isMobile)
+      .classed('edge-right', true)
       .merge(yourResult)
       .style('left', () => c.x(maxYear) + 'px')
       .style('top', r => c.y(r.value) + 'px')
