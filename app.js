@@ -41,7 +41,7 @@ d3.selectAll('.you-draw-it').each(function() {
     top: 20,
     right: 20,
     bottom: 20,
-    left: 20
+    left: 40
   };
 
   const width = sel.node().offsetWidth;
@@ -164,7 +164,6 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // make chart
   const charts = periods.map((entry, key) => {
-
     const lower = key > 0 ? periods[key - 1].year : minYear;
     const upper = entry.year;
 
