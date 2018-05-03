@@ -99,7 +99,7 @@ d3.selectAll('.you-draw-it').each(function() {
       .tickValues(c.x.ticks(maxYear - minYear))
       .tickFormat("")
       .tickSize(c.height)
-    );
+    )
     // lines to show segments
     .selectAll('line')
     .attr('class', (d, i) => segmentBorders.indexOf(d) !== -1 ? 'highlight' : '');
