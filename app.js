@@ -53,8 +53,8 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // configure scales
   const graphMinY = Math.min(minY, 0);
-  const graphMaxY = Math.max(indexedData[medianYear] * 2, maxY + (maxY - graphMinY) * 0.4);
   // add 40% for segment titles
+  const graphMaxY = Math.max(indexedData[medianYear] * 2, maxY + (maxY - graphMinY) * 0.4);
   c.x = d3.scaleLinear().range([0, c.width]);
   c.x.domain([minYear, maxYear]);
   c.y = d3.scaleLinear().range([c.height, 0]);
@@ -109,14 +109,13 @@ d3.selectAll('.you-draw-it').each(function() {
       .tickSize(-c.width)
   );
 
-  // invisible rect for dragging to work
+  // invisible rect to make dragging work
   const dragArea = c.svg.append('rect')
     .attr('class', 'draggable')
     .attr('x', c.x(medianYear))
     .attr('width', c.x(maxYear) - c.x(medianYear))
     .attr('height', c.height)
     .attr('opacity', 0);
-
 
   setTimeout(() => {
     const clientRect = c.svg.node().getBoundingClientRect();
@@ -136,7 +135,7 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr('marker-end', 'url(#preview-arrow)')
     .attr('x1', c.x(medianYear))
     .attr('y1', c.y(indexedData[medianYear]))
-    .attr('x2', c.x(medianYear) + 50)
+    .attr('x2', c.x(medianYear) + 100)
     .attr('y2', c.y(indexedData[medianYear]));
 
   const userSel = c.svg.append('path').attr('class', 'your-line');
@@ -261,7 +260,7 @@ d3.selectAll('.you-draw-it').each(function() {
       .attr("class", "x axis")
       .attr("transform", "translate(0," + c.height + ")")
       .call(c.xAxis);
-    // Null-Linie
+    // null axis
     if (graphMinY < 0) {
       c.axis.append('g')
       .classed('nullaxis', true)
@@ -377,11 +376,6 @@ d3.selectAll('.you-draw-it').each(function() {
   }
 
   function interactionHandler() {
-    if (state[key].resultShown) {
-      console.log('TODO remove')
-      return;
-    }
-
     sel.node().classList.add('drawn');
 
     const pos = d3.mouse(c.svg.node());
@@ -405,7 +399,6 @@ d3.selectAll('.you-draw-it').each(function() {
       state[key].completed = true;
       resultSection.node().classList.add('finished');
       resultSection.select('button').node().removeAttribute('disabled');
-      console.log('test')
     }
   }
 
@@ -417,11 +410,6 @@ d3.selectAll('.you-draw-it').each(function() {
   }
 
   function showResultChart() {
-    if (!state[key].completed) {
-      return;
-      console.log('TODO remove')
-    }
-
     state[key].resultShown = true;
     resultClip.transition().duration(700).attr('width', c.x(maxYear));
     dragArea.attr('class', '');
