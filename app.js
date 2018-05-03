@@ -69,17 +69,15 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr("height", c.height);
 
   // gradients
-  // TODO
   c.defs = d3.select(c.svg.node().parentNode).append('defs');
   ['black', 'red'].forEach(color => {
     const gradient = c.defs.append('linearGradient')
-      .attr('id', 'gradient-' + color)
+      .attr('id', 'gradient')
       .attr('x1', '0%')
       .attr('y1', '0%')
       .attr('x2', '0%')
       .attr('y2', '100%');
     gradient.append('stop').attr('offset', '50%').attr('class', 'start');
-    gradient.append('stop').attr('offset', '100%').attr('class', 'start');
   });
 
   c.defs.append('marker')
@@ -347,7 +345,7 @@ d3.selectAll('.you-draw-it').each(function() {
     const svgClass = addClass + (upper == medianYear ? " median" : '');
 
     const group = c.charts.append('g');
-    group.append('path').attr('d', area(data)).attr('class', 'area ' + svgClass).attr('fill', `url(#gradient-${addClass})`);
+    group.append('path').attr('d', area(data)).attr('class', 'area ' + svgClass).attr('fill', `url(#gradient)`);
     group.append('path').attr('d', line(data)).attr('class', 'line ' + svgClass);
 
     return [

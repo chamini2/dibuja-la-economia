@@ -5,36 +5,19 @@
   bottom: 0
   right: 0
 
-#text
-  color: #696969
+text
+  fill: #696969
+  font-size: 15px
 
 .you-draw-it
   position: relative
 
-  #gradient-black
+  #gradient
     .start
       stop-color: #BDBDBD
       stop-opacity: 0.3
-    .end
-      stop-color: #BDBDBD
-      stop-opacity: 0.3
-
-  #gradient-red
-    .start
-      stop-color: #BDBDBD
-      stop-opacity: 0.3
-    .end
-      stop-color: #BDBDBD
-      stop-opacity: 0.3
-
-  .axis
-    opacity: .5
-
-    text
-      font-size: 15px
 
   .line
-    fill: none
     stroke-width: 3
 
     &.black
@@ -99,6 +82,7 @@
       &.black
         span
           background-color: black
+
         &:after
           border-top-color: black
 
@@ -115,6 +99,7 @@
 
         span
           background-color: #0D47A1
+
         &:after
           border-top-color: #0D47A1
 
