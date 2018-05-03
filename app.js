@@ -380,6 +380,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   function interactionHandler() {
     if (state[key].resultShown) {
+      console.log('TODO remove')
       return;
     }
 
@@ -406,6 +407,7 @@ d3.selectAll('.you-draw-it').each(function() {
       state[key].completed = true;
       resultSection.node().classList.add('finished');
       resultSection.select('button').node().removeAttribute('disabled');
+      console.log('test')
     }
   }
 
@@ -419,7 +421,9 @@ d3.selectAll('.you-draw-it').each(function() {
   function showResultChart() {
     if (!state[key].completed) {
       return;
+      console.log('TODO remove')
     }
+
     state[key].resultShown = true;
     resultClip.transition().duration(700).attr('width', c.x(maxYear));
     dragArea.attr('class', '');
