@@ -16,9 +16,15 @@
             <div class="you-draw-it {{ question.key }}" data-key="{{ question.key }}"></div>
             <div class="result {{ question.key }}">
                 <div class="actionContainer">
-                    <button class="showAction" disabled>Wie war's tatsächlich?</button>
+                    <button disabled>Wie war's tatsächlich?</button>
                 </div>
-                <div class="text">{{ question.result|md }}</div>
+                <div class="text">
+                  {{ question.result|md }}
+                  <div class="">
+                      <button>Rückgängig</button>
+                  </div>
+                </div>
+
             </div>
             <script>
                 window.ydi_data = window.ydi_data || {};
