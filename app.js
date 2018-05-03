@@ -391,6 +391,7 @@ d3.selectAll('.you-draw-it').each(function() {
       state[key].completed = true;
       resultSection.node().classList.add('finished');
       resultSection.select('button').node().removeAttribute('disabled');
+      // TODO handle box behaviour: control-box should disappear at this point
     }
   }
 
