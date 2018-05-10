@@ -44,6 +44,12 @@ d3.selectAll('.you-draw-it').each(function() {
     left: 40
   };
 
+  window.addEventListener('resize', () => {
+    // TODO draw new svg
+    // and remove old one
+  })
+
+
   const width = sel.node().offsetWidth;
   const height = 400;
   const c = {
