@@ -236,6 +236,13 @@ d3.selectAll('.you-draw-it').each(function() {
 
   resultSection.select('button').on('click', showResultChart);
 
+  d3.select('.actionContainerRefresh').select('button').on('click', removeResultChart);
+
+  function removeResultChart() {
+    // restore untouched state
+    // TODO
+  }
+
   sel.on('mousemove', () => {
     const pos = d3.mouse(c.svg.node());
     const y = Math.min(Math.max(pos[1], c.y(graphMaxY)), c.y(graphMinY));

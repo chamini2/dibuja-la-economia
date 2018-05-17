@@ -26,10 +26,29 @@ body
     font-size: 24px
 
   .result
-    .actionContainer
-      position: absolute
+    .actionContainerShow
       left: 0
       right: 0
+
+      button
+        display: block
+        margin: 10px auto
+        padding: 8px 12px
+        border: none
+        background: #0D47A1
+        color: white
+        font-size: 18px
+        cursor: pointer
+        outline: none
+
+        &[disabled]
+          background: #ccc
+          cursor: not-allowed
+
+    .actionContainerRefresh
+      left: 0
+      right: 0
+      display: none
 
       button
         display: block
@@ -73,8 +92,11 @@ body
           background-color: #f0f0f0
 
     &.shown
-      .actionContainer
+      .actionContainerShow
         display: none
+
+      .actionContainerRefresh
+        display: inline
 
       .text
         visibility: visible

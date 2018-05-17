@@ -15,18 +15,15 @@
             <h3>{{ question.subheading|mdi }}</h3>
             <div class="you-draw-it {{ question.key }}" data-key="{{ question.key }}"></div>
             <div class="result {{ question.key }}">
-                <div class="actionContainer">
-                    <button disabled>Wie war's tatsächlich?</button>
+                <div class="actionContainerShow">
+                  <button disabled>Wie war's tatsächlich?</button>
+                </div>
+                <div class="actionContainerRefresh">
+                  <button>Rückgängig</button>
                 </div>
                 <div class="text">
                   {{ question.result|md }}
-
-                  <div class="">
-                      <button>Rückgängig</button>
-                  </div>
-
                 </div>
-
             </div>
             <script>
                 window.ydi_data = window.ydi_data || {};
