@@ -416,6 +416,7 @@ d3.selectAll('.you-draw-it').each(function() {
   }
 
   function showResultChart() {
+    sel.node().classList.add('resultMode');
     state[key].resultShown = true;
     resultClip.transition().duration(700).attr('width', c.x(maxYear));
     dragArea.attr('class', '');
