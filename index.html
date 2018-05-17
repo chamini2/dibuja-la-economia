@@ -16,12 +16,12 @@
             <div class="you-draw-it {{ question.key }}" data-key="{{ question.key }}"></div>
             <div class="result {{ question.key }}">
                 <div class="actionContainerShow">
-                  <button disabled>Wie war's tatsächlich?</button>
+                  <button id="actionContainerShowButton" disabled>Wie war's tatsächlich?</button>
                 </div>
                 <div class="actionContainerRefresh">
                   <button>Rückgängig</button>
                 </div>
-                <div class="text">
+                <div class="text" id="resultText">
                   {{ question.result|md }}
                 </div>
             </div>

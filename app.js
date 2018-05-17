@@ -241,6 +241,12 @@ d3.selectAll('.you-draw-it').each(function() {
   function removeResultChart() {
     // restore untouched state
     // TODO
+    sel.node().classList.remove('drawn');
+    sel.node().classList.remove('resultMode');
+
+    // remove text and change buttons
+    sel.node().nextSibling.nextSibling.classList.remove('shown');
+    document.getElementById('actionContainerShowButton').setAttribute('disabled', 'true');
   }
 
   sel.on('mousemove', () => {
@@ -400,11 +406,10 @@ d3.selectAll('.you-draw-it').each(function() {
 
     drawUserLine();
 
+    // TODO replace?
     if (!state[key].completed && d3.mean(state[key].yourData, ƒ('defined')) == 1) {
       state[key].completed = true;
-      resultSection.node().classList.add('finished');
       resultSection.select('button').node().removeAttribute('disabled');
-      // TODO handle box behaviour: control-box should disappear at this point
     }
   }
 
