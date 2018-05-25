@@ -150,7 +150,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // configure axes
   c.xAxis = d3.axisBottom().scale(c.x);
-  c.xAxis.tickFormat(d => String(d).substr(2)).ticks(maxYear - minYear);
+  c.xAxis.tickFormat(d => String(d).substr(2)).ticks(10, maxYear - minYear);
   drawAxis(c);
 
   c.titles = sel.append('div')
