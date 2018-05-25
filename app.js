@@ -233,38 +233,36 @@ d3.selectAll('.you-draw-it').each(function() {
 
   resultSection.select('button').on('click', showResultChart);
 
-  // d3.select('.actionContainerRefresh').select('button').on('click', removeResultChart);
-
   // quick fix (TODO)
-  document.getElementById('refresh-button').onclick = function(event) {
+  document.getElementById('refreshButton').onclick = function(event) {
     location.reload();
   }
 
-  function removeResultChart() {
-    // restore untouched state
-    // TODO
-    sel.node().classList.remove('drawn');
-    sel.node().classList.remove('resultMode');
-
-    // remove text and change buttons
-    sel.node().nextSibling.nextSibling.classList.remove('shown'); //resultSection.node().classList.add('shown');
-    document.getElementById('actionContainerShowButton').setAttribute('disabled', 'true');
-
-    resultChart.remove();
-    resultChart2.remove();
-    dragArea.attr('class', 'draggable');
-
-    state[key].resultShown = false;
-    state[key].completed = false;
-
-    resultLabel.map(e => e.style('opacity', 0));
-    resultLabel2.map(e => e.style('opacity', 0));
-
-    // remove user line
-    userSel.remove();
-    // remove last label
-    c.labels._groups[0][0].lastChild.remove();
-  }
+  // function removeResultChart() {
+  //   // restore untouched state
+  //   // TODO
+  //   sel.node().classList.remove('drawn');
+  //   sel.node().classList.remove('resultMode');
+  //
+  //   // remove text and change buttons
+  //   sel.node().nextSibling.nextSibling.classList.remove('shown'); //resultSection.node().classList.add('shown');
+  //   document.getElementById('actionContainerShowButton').setAttribute('disabled', 'true');
+  //
+  //   resultChart.remove();
+  //   resultChart2.remove();
+  //   dragArea.attr('class', 'draggable');
+  //
+  //   state[key].resultShown = false;
+  //   state[key].completed = false;
+  //
+  //   resultLabel.map(e => e.style('opacity', 0));
+  //   resultLabel2.map(e => e.style('opacity', 0));
+  //
+  //   // remove user line
+  //   userSel.remove();
+  //   // remove last label
+  //   c.labels._groups[0][0].lastChild.remove();
+  // }
 
   // positions the preview arrow up and down
   sel.on('mousemove', () => {
@@ -424,7 +422,6 @@ d3.selectAll('.you-draw-it').each(function() {
 
     drawUserLine();
 
-    // TODO replace?
     if (!state[key].completed && d3.mean(state[key].yourData, ƒ('defined')) == 1) {
       state[key].completed = true;
       resultSection.select('button').node().removeAttribute('disabled');
