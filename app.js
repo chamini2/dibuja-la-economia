@@ -420,7 +420,9 @@ d3.selectAll('.you-draw-it').each(function() {
       }
     });
 
-    drawUserLine();
+    if (!state[key].resultShown) {
+      drawUserLine();
+    }
 
     if (!state[key].completed && d3.mean(state[key].yourData, ƒ('defined')) == 1) {
       state[key].completed = true;
