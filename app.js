@@ -150,7 +150,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // configure axes
   c.xAxis = d3.axisBottom().scale(c.x);
-  c.xAxis.tickFormat(d => String(d).substr(2)).ticks(maxYear - minYear);
+  c.xAxis.tickFormat(d => String(d).substr(2)).ticks(10, maxYear - minYear);
   drawAxis(c);
 
   c.titles = sel.append('div')
@@ -325,6 +325,13 @@ d3.selectAll('.you-draw-it').each(function() {
     const data = question.precision >= 0 ?
       Number(val).toFixed(question.precision) :
       defaultPrecision ? Number(val).toFixed(defaultPrecision) : val;
+
+    // don't show label text for unit (specified in yml file) if screensize is below 600
+    const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    if (w <= 600) {
+      return String(data).replace('.', ',');
+    }
+
     return String(data).replace('.', ',') + (question.unit ? ' ' + question.unit : '');
   }
 
@@ -420,7 +427,9 @@ d3.selectAll('.you-draw-it').each(function() {
       }
     });
 
-    drawUserLine();
+    if (!state[key].resultShown) {
+      drawUserLine();
+    }
 
     if (!state[key].completed && d3.mean(state[key].yourData, ƒ('defined')) == 1) {
       state[key].completed = true;
