@@ -1,7 +1,6 @@
 const state = {};
 
 d3.selectAll('.you-draw-it').each(function() {
-
   const sel = d3.select(this);
   const key = this.dataset.key;
   const question = window.ydi_data[key];
@@ -43,6 +42,11 @@ d3.selectAll('.you-draw-it').each(function() {
     bottom: 20,
     left: 40
   };
+
+  window.addEventListener('resize', () => {
+    // TODO draw new svg
+    // and remove old one
+  })
 
   const width = sel.node().offsetWidth;
   const height = 400;
@@ -141,6 +145,7 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr('y2', c.y(indexedData[medianYear]));
 
   const userSel = c.svg.append('path').attr('class', 'your-line');
+
   c.dots = c.svg.append('g').attr('class', 'dots');
 
   // configure axes
@@ -223,13 +228,43 @@ d3.selectAll('.you-draw-it').each(function() {
 
   const resultSection = d3.select('.result.' + key);
 
-  drawUserLine();
-
   c.svg.call(d3.drag().on('drag', interactionHandler));
   c.svg.on('click', interactionHandler);
 
   resultSection.select('button').on('click', showResultChart);
 
+  // quick fix (TODO)
+  document.getElementById('refreshButton').onclick = function(event) {
+    location.reload();
+  }
+
+  // function removeResultChart() {
+  //   // restore untouched state
+  //   // TODO
+  //   sel.node().classList.remove('drawn');
+  //   sel.node().classList.remove('resultMode');
+  //
+  //   // remove text and change buttons
+  //   sel.node().nextSibling.nextSibling.classList.remove('shown'); //resultSection.node().classList.add('shown');
+  //   document.getElementById('actionContainerShowButton').setAttribute('disabled', 'true');
+  //
+  //   resultChart.remove();
+  //   resultChart2.remove();
+  //   dragArea.attr('class', 'draggable');
+  //
+  //   state[key].resultShown = false;
+  //   state[key].completed = false;
+  //
+  //   resultLabel.map(e => e.style('opacity', 0));
+  //   resultLabel2.map(e => e.style('opacity', 0));
+  //
+  //   // remove user line
+  //   userSel.remove();
+  //   // remove last label
+  //   c.labels._groups[0][0].lastChild.remove();
+  // }
+
+  // positions the preview arrow up and down
   sel.on('mousemove', () => {
     const pos = d3.mouse(c.svg.node());
     const y = Math.min(Math.max(pos[1], c.y(graphMaxY)), c.y(graphMinY));
@@ -389,9 +424,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
     if (!state[key].completed && d3.mean(state[key].yourData, ƒ('defined')) == 1) {
       state[key].completed = true;
-      resultSection.node().classList.add('finished');
       resultSection.select('button').node().removeAttribute('disabled');
-      // TODO handle box behaviour: control-box should disappear at this point
     }
   }
 
@@ -403,6 +436,7 @@ d3.selectAll('.you-draw-it').each(function() {
   }
 
   function showResultChart() {
+    sel.node().classList.add('resultMode');
     state[key].resultShown = true;
     resultClip.transition().duration(700).attr('width', c.x(maxYear));
     dragArea.attr('class', '');
