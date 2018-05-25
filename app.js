@@ -327,11 +327,10 @@ d3.selectAll('.you-draw-it').each(function() {
       defaultPrecision ? Number(val).toFixed(defaultPrecision) : val;
 
     // don't show label text for unit (specified in yml file) if screensize is below 600
-    const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    if (w <= 600) {
+    const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    if (width <= 600) {
       return String(data).replace('.', ',');
     }
-
     return String(data).replace('.', ',') + (question.unit ? ' ' + question.unit : '');
   }
 
