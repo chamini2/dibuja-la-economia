@@ -145,10 +145,6 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr('y2', c.y(indexedData[medianYear]));
 
   const userSel = c.svg.append('path').attr('class', 'your-line');
-  console.log(document.getElementsByClassName('your-line')[0]);
-  // var test = document.getElementsByClassName('your-line')[0].getAttribute('d');
-  // console.log(data);
-
 
   c.dots = c.svg.append('g').attr('class', 'dots');
 
@@ -237,7 +233,12 @@ d3.selectAll('.you-draw-it').each(function() {
 
   resultSection.select('button').on('click', showResultChart);
 
-  d3.select('.actionContainerRefresh').select('button').on('click', removeResultChart);
+  // d3.select('.actionContainerRefresh').select('button').on('click', removeResultChart);
+
+  // quick fix (TODO)
+  document.getElementById('refresh-button').onclick = function(event) {
+    location.reload();
+  }
 
   function removeResultChart() {
     // restore untouched state
@@ -249,23 +250,20 @@ d3.selectAll('.you-draw-it').each(function() {
     sel.node().nextSibling.nextSibling.classList.remove('shown'); //resultSection.node().classList.add('shown');
     document.getElementById('actionContainerShowButton').setAttribute('disabled', 'true');
 
-    // TODO better operate on charts object
     resultChart.remove();
     resultChart2.remove();
     dragArea.attr('class', 'draggable');
-    // console.log(  document.getElementsByClassName('your-line')[0])
-    // document.getElementsByClassName('your-line')[0].remove();
 
     state[key].resultShown = false;
     state[key].completed = false;
 
-    // console.log(document.getElementsByClassName('your-line')[0]);
-
     resultLabel.map(e => e.style('opacity', 0));
     resultLabel2.map(e => e.style('opacity', 0));
-    console.log(document.getElementsByClassName('data-label your-result'))
 
-
+    // remove user line
+    userSel.remove();
+    // remove last label
+    c.labels._groups[0][0].lastChild.remove();
   }
 
   // positions the preview arrow up and down
