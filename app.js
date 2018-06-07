@@ -19,18 +19,20 @@ d3.selectAll('.you-draw-it').each(function() {
   const minYear = data[0].year;
   const maxYear = data[data.length - 1].year;
 
+  // denote points on graph
   const periods = [
-    {year: 1994, class: 'red', title: ""},
-    {year: 1999, class: 'red', title: "SPD"},
-    {year: 2004, class: 'black', title: "SPD + CDU"},
-    {year: 2009, class: 'black', title: "SPD + CDU"},
-    {year: Math.min(maxYear), class: 'red', title: "SPD + Die Linke"}
+    {year: 2004, class: 'black', title: ''},
+    {year: 2007, class: 'black', title: ''},
+    {year: 2010, class: 'black', title: ''},
+    {year: 2013, class: 'black', title: ''},
+    {year: Math.min(maxYear), class: 'black', title: ''}
   ];
 
   // position for starting to draw
-  const medianYear = periods[periods.length - 3].year;
+  // const medianYear = periods[periods.length - 4].year;
+  const medianYear = 2007;
 
-  // min and max of values
+  // min and max values of used data
   const minY = d3.min(data, d => d.value);
   const maxY = d3.max(data, d => d.value);
 
@@ -40,7 +42,7 @@ d3.selectAll('.you-draw-it').each(function() {
     top: 20,
     right: 20,
     bottom: 20,
-    left: 40
+    left: 60
   };
 
   window.addEventListener('resize', () => {
@@ -97,7 +99,6 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // make background grid
   c.grid = c.svg.append('g').attr('class', 'grid');
-
   c.grid.append('g').attr('class', 'horizontal').call(
     d3.axisBottom(c.x)
       .tickValues(c.x.ticks(maxYear - minYear))
@@ -135,7 +136,7 @@ d3.selectAll('.you-draw-it').each(function() {
   c.axis = c.svg.append('g');
   c.charts = c.svg.append('g');
 
-  // add a preview line
+  // add a preview line with arrow
   c.preview = c.svg.append('line')
     .attr('class', 'preview-line')
     .attr('marker-end', 'url(#preview-arrow)')
@@ -180,8 +181,9 @@ d3.selectAll('.you-draw-it').each(function() {
     return drawChart(lower, upper, entry.class);
   });
 
-  const resultChart = charts[charts.length - 2][0];
-  const resultChart2 = charts[charts.length - 1][0];
+  const resultChart = charts[charts.length - 3][0];
+  const resultChart2 = charts[charts.length - 2][0];
+  const resultChart3 = charts[charts.length - 1][0];
 
   const resultClip = c.charts.append('clipPath')
     .attr('id', `result-clip-${key}`)
@@ -191,6 +193,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   const resultLabel = charts[charts.length - 1].slice(1, 3);
   const resultLabel2 = charts[charts.length - 2].slice(1, 3);
+  const resultLabel3 = charts[charts.length - 3].slice(1, 3);
 
   resultChart.attr('clip-path', `url(#result-clip-${key})`)
     .append('rect')
@@ -204,8 +207,16 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr('height', c.height)
     .attr('fill', 'none');
 
+  resultChart3.attr('clip-path', `url(#result-clip-${key})`)
+    .append('rect')
+    .attr('width', c.width)
+    .attr('height', c.height)
+    .attr('fill', 'none');
+
   resultLabel.map(e => e.style('opacity', 0));
   resultLabel2.map(e => e.style('opacity', 0));
+  resultLabel3.map(e => e.style('opacity', 0));
+
 
   /*
   * Interactive user selection part
@@ -319,6 +330,22 @@ d3.selectAll('.you-draw-it').each(function() {
     c.axis.append('text')
       .text("8000")
       .attr('transform', "translate(-40, " + (c.y(8000)+5) + ")");
+
+    c.axis.append('text')
+      .text("10000")
+      .attr('transform', "translate(-48, " + (c.y(10000)+5) + ")");
+
+    c.axis.append('text')
+      .text("12000")
+      .attr('transform', "translate(-48, " + (c.y(12000)+5) + ")");
+
+    c.axis.append('text')
+      .text("14000")
+      .attr('transform', "translate(-48 , " + (c.y(14000)+5) + ")");
+
+    c.axis.append('text')
+      .text("16000")
+      .attr('transform', "translate(-48 , " + (c.y(16000)+5) + ")");
   }
 
   function formatValue(val, defaultPrecision) {
@@ -451,6 +478,7 @@ d3.selectAll('.you-draw-it').each(function() {
     setTimeout(() => {
       resultLabel.map(e => e.style('opacity', 1));
       resultLabel2.map(e => e.style('opacity', 1));
+      resultLabel3.map(e => e.style('opacity', 1));
       resultSection.node().classList.add('shown');
     }, 700);
   }
