@@ -78,9 +78,8 @@ d3.selectAll('.you-draw-it').each(function() {
   c.svg.append("text")
     .attr("class", "y label")
     .attr("text-anchor", "top")
-    .attr("y", -30)
+    .attr("y", -20)
     .attr("x", -48)
-    .attr("dy", ".75em")
     .text("Anzahl der Ärzte");
 
   c.svg.append("text")
@@ -232,7 +231,6 @@ d3.selectAll('.you-draw-it').each(function() {
   resultLabel.map(e => e.style('opacity', 0));
   resultLabel2.map(e => e.style('opacity', 0));
   resultLabel3.map(e => e.style('opacity', 0));
-
 
   /*
   * Interactive user selection part
@@ -399,7 +397,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
     return [
       c.dots.append('circle')
-        .attr('r', 4.5)
+        .attr('r', 5)
         .attr('cx', x)
         .attr('cy', y)
         .attr('class', addClass),
