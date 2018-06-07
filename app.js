@@ -39,9 +39,9 @@ d3.selectAll('.you-draw-it').each(function() {
   const segmentBorders = [minYear].concat(periods.map(d => d.year));
 
   const margin = {
-    top: 20,
-    right: 20,
-    bottom: 20,
+    top: 40,
+    right: 40,
+    bottom: 40,
     left: 60
   };
 
@@ -73,6 +73,22 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .attr("width", c.width)
     .attr("height", c.height);
+
+  // label axes
+  c.svg.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "top")
+    .attr("y", -30)
+    .attr("x", -48)
+    .attr("dy", ".75em")
+    .text("Anzahl der Ärzte");
+
+  c.svg.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "bottom")
+    .attr("x", c.width - 35)
+    .attr("y", c.height + 40)
+    .text("Jahre");
 
   // gradients (area below graph)
   c.defs = d3.select(c.svg.node().parentNode).append('defs');
