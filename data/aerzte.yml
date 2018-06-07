@@ -1,0 +1,27 @@
+heading: Ärzte in Brandenburg
+subheading: Wie hat sich die Anzahl der Ärzte in Brandenburg entwickelt? Was schätzen Sie?
+result: >
+        **Die Anzahl der Ärzte hat sich in den Letzen Jahren verändert**
+        Zwischen 2001 und 2017 ist die Anzahl der Ärzte in Brandenburg angestiegen jedes Jahr angestiegen.
+data:
+  2001: 7382
+  2002: 7445
+  2003: 7571
+  2004: 7787
+  2005: 7943
+  2006: 8059
+  2007: 8130
+  2008:	8291
+  2009: 8443
+  2010:	8542
+  2011:	8643
+  2012:	8833
+  2013:	9017
+  2014:	9233
+  2015:	9487
+  2016:	9692
+  2017:	9929
+unit: Ärzte
+precision: 0
+sourceUrl: https://www.laekb.de/www/website/PublicNavigation/ihrelaekb/diekammer/statistik/statistik2001-2013/
+source: Landesärztekammer Brandenburg

@@ -19,33 +19,34 @@ d3.selectAll('.you-draw-it').each(function() {
   const minYear = data[0].year;
   const maxYear = data[data.length - 1].year;
 
+  // denote points on graph
   const periods = [
-    {year: 1994, class: 'red', title: ""},
-    {year: 1999, class: 'red', title: "SPD"},
-    {year: 2004, class: 'black', title: "SPD + CDU"},
-    {year: 2009, class: 'black', title: "SPD + CDU"},
-    {year: Math.min(maxYear), class: 'red', title: "SPD + Die Linke"}
+    {year: 2004, class: 'black', title: ''},
+    {year: 2007, class: 'black', title: ''},
+    {year: 2010, class: 'black', title: ''},
+    {year: 2013, class: 'black', title: ''},
+    {year: Math.min(maxYear), class: 'black', title: ''}
   ];
 
   // position for starting to draw
-  const medianYear = periods[periods.length - 3].year;
+  // const medianYear = periods[periods.length - 4].year;
+  const medianYear = 2007;
 
-  // min and max of values
+  // min and max values of used data
   const minY = d3.min(data, d => d.value);
   const maxY = d3.max(data, d => d.value);
 
   const segmentBorders = [minYear].concat(periods.map(d => d.year));
 
   const margin = {
-    top: 20,
-    right: 20,
-    bottom: 20,
-    left: 40
+    top: 40,
+    right: 48,
+    bottom: 40,
+    left: 60
   };
 
   window.addEventListener('resize', () => {
-    // TODO draw new svg
-    // and remove old one
+    // TODO
   })
 
   const width = sel.node().offsetWidth;
@@ -57,8 +58,10 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // configure scales
   const graphMinY = Math.min(minY, 0);
-  // add 40% for segment titles
-  const graphMaxY = Math.max(indexedData[medianYear] * 2, maxY + (maxY - graphMinY) * 0.4);
+  // add 20% for segment titles (not currently used)
+  let graphMaxY = Math.max(indexedData[medianYear] * 2, maxY + (maxY - graphMinY) * 0.2);
+  // round down to the nearest thousand
+  graphMaxY = Math.round(graphMaxY/1000)*1000;
   c.x = d3.scaleLinear().range([0, c.width]);
   c.x.domain([minYear, maxYear]);
   c.y = d3.scaleLinear().range([c.height, 0]);
@@ -71,6 +74,21 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .attr("width", c.width)
     .attr("height", c.height);
+
+  // label axes
+  c.svg.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "top")
+    .attr("y", -20)
+    .attr("x", -50)
+    .text("Anzahl der Ärzte");
+
+  c.svg.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "bottom")
+    .attr("x", c.width + 5)
+    .attr("y", c.height + 20)
+    .text("Jahre");
 
   // gradients (area below graph)
   c.defs = d3.select(c.svg.node().parentNode).append('defs');
@@ -97,7 +115,6 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // make background grid
   c.grid = c.svg.append('g').attr('class', 'grid');
-
   c.grid.append('g').attr('class', 'horizontal').call(
     d3.axisBottom(c.x)
       .tickValues(c.x.ticks(maxYear - minYear))
@@ -110,7 +127,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   c.grid.append('g').attr('class', 'vertical').call(
     d3.axisLeft(c.y)
-      .tickValues(c.y.ticks(6))
+      .tickValues(c.y.ticks(graphMaxY/2000))
       .tickFormat("")
       .tickSize(-c.width)
     );
@@ -135,7 +152,7 @@ d3.selectAll('.you-draw-it').each(function() {
   c.axis = c.svg.append('g');
   c.charts = c.svg.append('g');
 
-  // add a preview line
+  // add a preview line with arrow
   c.preview = c.svg.append('line')
     .attr('class', 'preview-line')
     .attr('marker-end', 'url(#preview-arrow)')
@@ -150,7 +167,11 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // configure axes
   c.xAxis = d3.axisBottom().scale(c.x);
+  // formats year
   c.xAxis.tickFormat(d => String(d).substr(2)).ticks(10, maxYear - minYear);
+  c.yAxis = d3.axisLeft().scale(c.y);
+  // 2000 => steps on y-axis (TODO)
+  c.yAxis.tickFormat(d => String(d).substr(0)).ticks(graphMaxY/2000);
   drawAxis(c);
 
   c.titles = sel.append('div')
@@ -180,8 +201,9 @@ d3.selectAll('.you-draw-it').each(function() {
     return drawChart(lower, upper, entry.class);
   });
 
-  const resultChart = charts[charts.length - 2][0];
-  const resultChart2 = charts[charts.length - 1][0];
+  const resultChart = charts[charts.length - 3][0];
+  const resultChart2 = charts[charts.length - 2][0];
+  const resultChart3 = charts[charts.length - 1][0];
 
   const resultClip = c.charts.append('clipPath')
     .attr('id', `result-clip-${key}`)
@@ -191,6 +213,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   const resultLabel = charts[charts.length - 1].slice(1, 3);
   const resultLabel2 = charts[charts.length - 2].slice(1, 3);
+  const resultLabel3 = charts[charts.length - 3].slice(1, 3);
 
   resultChart.attr('clip-path', `url(#result-clip-${key})`)
     .append('rect')
@@ -204,12 +227,19 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr('height', c.height)
     .attr('fill', 'none');
 
+  resultChart3.attr('clip-path', `url(#result-clip-${key})`)
+    .append('rect')
+    .attr('width', c.width)
+    .attr('height', c.height)
+    .attr('fill', 'none');
+
   resultLabel.map(e => e.style('opacity', 0));
   resultLabel2.map(e => e.style('opacity', 0));
+  resultLabel3.map(e => e.style('opacity', 0));
 
   /*
-  * Interactive user selection part
-  */
+   * Interactive user selection part
+   */
   const userLine = d3.line().x(ƒ('year', c.x)).y(ƒ('value', c.y));
 
   if (!state[key].yourData) {
@@ -271,8 +301,9 @@ d3.selectAll('.you-draw-it').each(function() {
     c.preview.attr('y2', y);
   });
 
-  /* functions */
-  /*************/
+  /*
+   * functions
+   */
 
   function ƒ() {
     const functions = arguments;
@@ -297,28 +328,9 @@ d3.selectAll('.you-draw-it').each(function() {
       .attr("class", "x axis")
       .attr("transform", "translate(0," + c.height + ")")
       .call(c.xAxis);
-
-    // TODO
-    // scale on y axis
-    c.axis.append('text')
-      .text("0")
-      .attr('transform', "translate(-15, " + (c.y(0)+5) + ")");
-
-    c.axis.append('text')
-      .text("2000")
-      .attr('transform', "translate(-40, " + (c.y(2000)+5) + ")");
-
-    c.axis.append('text')
-      .text("4000")
-      .attr('transform', "translate(-40, " + (c.y(4000)+5) + ")");
-
-    c.axis.append('text')
-      .text("6000")
-      .attr('transform', "translate(-40, " + (c.y(6000)+5) + ")");
-
-    c.axis.append('text')
-      .text("8000")
-      .attr('transform', "translate(-40, " + (c.y(8000)+5) + ")");
+    c.axis.append('g')
+      .attr("class", "y axis")
+      .call(c.yAxis);
   }
 
   function formatValue(val, defaultPrecision) {
@@ -356,7 +368,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
     return [
       c.dots.append('circle')
-        .attr('r', 4.5)
+        .attr('r', 5)
         .attr('cx', x)
         .attr('cy', y)
         .attr('class', addClass),
@@ -451,6 +463,7 @@ d3.selectAll('.you-draw-it').each(function() {
     setTimeout(() => {
       resultLabel.map(e => e.style('opacity', 1));
       resultLabel2.map(e => e.style('opacity', 1));
+      resultLabel3.map(e => e.style('opacity', 1));
       resultSection.node().classList.add('shown');
     }, 700);
   }
