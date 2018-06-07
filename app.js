@@ -21,16 +21,15 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // denote points on graph
   const periods = [
-    {year: 2004, class: 'black', title: ''},
-    {year: 2007, class: 'black', title: ''},
-    {year: 2010, class: 'black', title: ''},
+    {year: 2005, class: 'black', title: ''},
+    {year: 2009, class: 'black', title: ''},
     {year: 2013, class: 'black', title: ''},
     {year: Math.min(maxYear), class: 'black', title: ''}
   ];
 
   // position for starting to draw
   // const medianYear = periods[periods.length - 4].year;
-  const medianYear = 2007;
+  const medianYear = 2005;
 
   // min and max values of used data
   const minY = d3.min(data, d => d.value);
