@@ -59,8 +59,10 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // configure scales
   const graphMinY = Math.min(minY, 0);
-  // add 40% for segment titles
-  const graphMaxY = Math.max(indexedData[medianYear] * 2, maxY + (maxY - graphMinY) * 0.4);
+  // add 20% for segment titles (not currently used)
+  let graphMaxY = Math.max(indexedData[medianYear] * 2, maxY + (maxY - graphMinY) * 0.2);
+  // round down to the nearest thousand
+  graphMaxY = Math.round(graphMaxY/1000)*1000;
   c.x = d3.scaleLinear().range([0, c.width]);
   c.x.domain([minYear, maxYear]);
   c.y = d3.scaleLinear().range([c.height, 0]);
@@ -79,7 +81,7 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr("class", "y label")
     .attr("text-anchor", "top")
     .attr("y", -20)
-    .attr("x", -48)
+    .attr("x", -50)
     .text("Anzahl der Ärzte");
 
   c.svg.append("text")
@@ -126,7 +128,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   c.grid.append('g').attr('class', 'vertical').call(
     d3.axisLeft(c.y)
-      .tickValues(c.y.ticks(6))
+      .tickValues(c.y.ticks(8))
       .tickFormat("")
       .tickSize(-c.width)
     );
@@ -167,6 +169,8 @@ d3.selectAll('.you-draw-it').each(function() {
   // configure axes
   c.xAxis = d3.axisBottom().scale(c.x);
   c.xAxis.tickFormat(d => String(d).substr(2)).ticks(10, maxYear - minYear);
+  c.yAxis = d3.axisLeft().scale(c.y);
+  c.yAxis.tickFormat(d => String(d).substr(0)).ticks(6);
   drawAxis(c);
 
   c.titles = sel.append('div')
@@ -233,8 +237,8 @@ d3.selectAll('.you-draw-it').each(function() {
   resultLabel3.map(e => e.style('opacity', 0));
 
   /*
-  * Interactive user selection part
-  */
+   * Interactive user selection part
+   */
   const userLine = d3.line().x(ƒ('year', c.x)).y(ƒ('value', c.y));
 
   if (!state[key].yourData) {
@@ -296,8 +300,9 @@ d3.selectAll('.you-draw-it').each(function() {
     c.preview.attr('y2', y);
   });
 
-  /* functions */
-  /*************/
+  /*
+   * functions
+   */
 
   function ƒ() {
     const functions = arguments;
@@ -322,44 +327,9 @@ d3.selectAll('.you-draw-it').each(function() {
       .attr("class", "x axis")
       .attr("transform", "translate(0," + c.height + ")")
       .call(c.xAxis);
-
-    // TODO
-    // scale on y axis
-    c.axis.append('text')
-      .text("0")
-      .attr('transform', "translate(-15, " + (c.y(0)+5) + ")");
-
-    c.axis.append('text')
-      .text("2000")
-      .attr('transform', "translate(-40, " + (c.y(2000)+5) + ")");
-
-    c.axis.append('text')
-      .text("4000")
-      .attr('transform', "translate(-40, " + (c.y(4000)+5) + ")");
-
-    c.axis.append('text')
-      .text("6000")
-      .attr('transform', "translate(-40, " + (c.y(6000)+5) + ")");
-
-    c.axis.append('text')
-      .text("8000")
-      .attr('transform', "translate(-40, " + (c.y(8000)+5) + ")");
-
-    c.axis.append('text')
-      .text("10000")
-      .attr('transform', "translate(-48, " + (c.y(10000)+5) + ")");
-
-    c.axis.append('text')
-      .text("12000")
-      .attr('transform', "translate(-48, " + (c.y(12000)+5) + ")");
-
-    c.axis.append('text')
-      .text("14000")
-      .attr('transform', "translate(-48 , " + (c.y(14000)+5) + ")");
-
-    c.axis.append('text')
-      .text("16000")
-      .attr('transform', "translate(-48 , " + (c.y(16000)+5) + ")");
+    c.axis.append('g')
+      .attr("class", "y axis")
+      .call(c.yAxis);
   }
 
   function formatValue(val, defaultPrecision) {
