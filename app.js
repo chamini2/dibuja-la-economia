@@ -40,14 +40,13 @@ d3.selectAll('.you-draw-it').each(function() {
 
   const margin = {
     top: 40,
-    right: 40,
+    right: 48,
     bottom: 40,
     left: 60
   };
 
   window.addEventListener('resize', () => {
-    // TODO draw new svg
-    // and remove old one
+    // TODO
   })
 
   const width = sel.node().offsetWidth;
@@ -87,8 +86,8 @@ d3.selectAll('.you-draw-it').each(function() {
   c.svg.append("text")
     .attr("class", "x label")
     .attr("text-anchor", "bottom")
-    .attr("x", c.width - 35)
-    .attr("y", c.height + 40)
+    .attr("x", c.width + 5)
+    .attr("y", c.height + 20)
     .text("Jahre");
 
   // gradients (area below graph)
@@ -128,7 +127,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   c.grid.append('g').attr('class', 'vertical').call(
     d3.axisLeft(c.y)
-      .tickValues(c.y.ticks(8))
+      .tickValues(c.y.ticks(graphMaxY/2000))
       .tickFormat("")
       .tickSize(-c.width)
     );
@@ -168,9 +167,11 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // configure axes
   c.xAxis = d3.axisBottom().scale(c.x);
+  // formats year
   c.xAxis.tickFormat(d => String(d).substr(2)).ticks(10, maxYear - minYear);
   c.yAxis = d3.axisLeft().scale(c.y);
-  c.yAxis.tickFormat(d => String(d).substr(0)).ticks(6);
+  // 2000 => steps on y-axis (TODO)
+  c.yAxis.tickFormat(d => String(d).substr(0)).ticks(graphMaxY/2000);
   drawAxis(c);
 
   c.titles = sel.append('div')

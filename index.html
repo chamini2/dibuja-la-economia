@@ -14,6 +14,11 @@
             <h2>{{ question.heading|mdi }}</h2>
             <h3>{{ question.subheading|mdi }}</h3>
             <div class="you-draw-it {{ question.key }}" data-key="{{ question.key }}"></div>
+            <div class="clearfix">
+              <div style="float: right; font-size: 0.9rem;" class="clearfix">
+                Quelle: <a href="{{ question.sourceUrl }}" target="_blank">{{ question.source }}</a>
+              </div>
+            </div>
             <div class="result {{ question.key }}">
                 <div class="actionContainerShow">
                   <button id="actionContainerShowButton" disabled>Wie war's tatsächlich?</button>
