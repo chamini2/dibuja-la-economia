@@ -39,7 +39,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   const margin = {
     top: 40,
-    right: 6,
+    right: 5,
     bottom: 40,
     left: 50
   };
@@ -86,7 +86,7 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr("class", "x label")
     .attr("text-anchor", "right")
     .attr("x", c.width - 36)
-    .attr("y", c.height + 35)
+    .attr("y", c.height + 38)
     .text("Jahre");
 
   // gradients (area below graph)
