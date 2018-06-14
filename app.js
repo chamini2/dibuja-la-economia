@@ -39,7 +39,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   const margin = {
     top: 40,
-    right: 20,
+    right: 7,
     bottom: 40,
     left: 50
   };
