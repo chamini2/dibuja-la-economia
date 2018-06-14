@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 const gulp = require('gulp');
+const babel = require('gulp-babel');
 const browserSync = require('browser-sync').create();
 const yaml = require('js-yaml');
 const markdownIt = require('markdown-it')();
@@ -65,7 +66,7 @@ gulp.task('html', ['styles', 'templates'], function() {
                 $.rev()
             ],
             js: [
-                $.babel({ presets: ['es2015'] }),
+                $.babel({ presets: ['env'] }),
                 $.minify({
                     ext: {
                         min:'.js'
