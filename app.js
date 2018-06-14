@@ -264,7 +264,7 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // quick fix (TODO)
   document.getElementById('refreshButton').onclick = function(event) {
-    location.reload();
+    window.location.reload();
   }
 
   // function removeResultChart() {
