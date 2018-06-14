@@ -85,7 +85,7 @@ d3.selectAll('.you-draw-it').each(function() {
   c.svg.append("text")
     .attr("class", "x label")
     .attr("text-anchor", "right")
-    .attr("x", c.width - 36)
+    .attr("x", c.width - 26)
     .attr("y", c.height + 38)
     .text("Jahr");
 
@@ -111,7 +111,7 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr('refY', 2)
     .append('path')
     .attr('d', 'M0,0 V4 L2,2 Z')
-    .attr('fill', 'none');
+    .attr('stroke', 'none');
 
   // make background grid
   c.grid = c.svg.append('g').attr('class', 'grid');
