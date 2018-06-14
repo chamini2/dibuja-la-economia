@@ -87,7 +87,7 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr("text-anchor", "right")
     .attr("x", c.width - 36)
     .attr("y", c.height + 38)
-    .text("Jahre");
+    .text("Jahr");
 
   // gradients (area below graph)
   c.defs = d3.select(c.svg.node().parentNode).append('defs');
@@ -110,7 +110,8 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr('refX', 0.1)
     .attr('refY', 2)
     .append('path')
-    .attr('d', 'M0,0 V4 L2,2 Z');
+    .attr('d', 'M0,0 V4 L2,2 Z')
+    .attr('fill', 'none');
 
   // make background grid
   c.grid = c.svg.append('g').attr('class', 'grid');
