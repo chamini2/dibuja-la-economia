@@ -121,6 +121,7 @@ gulp.task('critical-css', ['assets'], function() {
         .pipe(gulp.dest(dist));
 });
 
+// TODO fix later
 gulp.task('default', () =>
   gulp.src('app.js')
     .pipe(babel({
