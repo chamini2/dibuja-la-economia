@@ -39,9 +39,9 @@ d3.selectAll('.you-draw-it').each(function() {
 
   const margin = {
     top: 40,
-    right: 48,
+    right: 20,
     bottom: 40,
-    left: 60
+    left: 50
   };
 
   window.addEventListener('resize', () => {
@@ -84,9 +84,9 @@ d3.selectAll('.you-draw-it').each(function() {
 
   c.svg.append("text")
     .attr("class", "x label")
-    .attr("text-anchor", "bottom")
-    .attr("x", c.width + 5)
-    .attr("y", c.height + 20)
+    .attr("text-anchor", "right")
+    .attr("x", c.width - 34)
+    .attr("y", c.height + 35)
     .text("Jahre");
 
   // gradients (area below graph)
