@@ -251,7 +251,7 @@ d3.selectAll('.you-draw-it').each(function() {
       if (d.year == medianYear) {
         d.defined = true;
       }
-      return d.year >= medianYear
+      return d.year >= medianYear;
     });
   }
 
