@@ -121,6 +121,14 @@ gulp.task('critical-css', ['assets'], function() {
         .pipe(gulp.dest(dist));
 });
 
+gulp.task('default', () =>
+  gulp.src('app.js')
+    .pipe(babel({
+      presets: ['env']
+    }))
+  .pipe(gulp.dest('dist'))
+);
+
 gulp.task('build', ['assets', 'critical-css']);
 
-gulp.task('default', ['build']);
+// gulp.task('default', ['build']); // TODO fix build
