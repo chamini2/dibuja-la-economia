@@ -8,34 +8,33 @@
 </head>
 <body>
 <article id="content" class="container">
-    <div class="questions">
-        {% for question in data %}
-        <div class="question">
-            <h2>{{ question.heading|mdi }}</h2>
-            <h3>{{ question.subheading|mdi }}</h3>
-            <div class="you-draw-it {{ question.key }}" data-key="{{ question.key }}"></div>
-            <div class="clearfix">
-              <div style="float: right; font-size: 0.8rem; margin-top: 0.5rem;" class="clearfix">
-                Quelle: <a href="{{ question.sourceUrl }}" target="_blank">{{ question.source }}</a>
-              </div>
-            </div>
-            <div class="result {{ question.key }}">
-                <div class="actionContainerShow">
-                  <button id="actionContainerShowButton" disabled>Wie war's tatsächlich?</button>
-                </div>
-                <div id="refreshButton" class="actionContainerRefresh">
-                  <button>Rückgängig</button>
-                </div>
-                <div class="text" id="resultText">
-                  {{ question.result|md }}
-                </div>
-            </div>
-            <script>
-                window.ydi_data = window.ydi_data || {};
-                window.ydi_data['{{ question.key }}'] = {% autoescape false %}{{ question|json_encode }}{% endautoescape %};
-            </script>
+  <div class="questions">
+    {% for question in data %}
+    <div class="question">
+      <h3>{{ question.subheading|mdi }}</h3>
+      <div class="you-draw-it {{ question.key }}" data-key="{{ question.key }}"></div>
+      <div class="clearfix">
+        <div style="float: right; font-size: 0.8rem; margin-top: 0.5rem;" class="clearfix">
+          Quelle: <a href="{{ question.sourceUrl }}" target="_blank">{{ question.source }}</a>
         </div>
+      </div>
+      <div class="result {{ question.key }}">
+        <div class="actionContainerShow">
+          <button id="actionContainerShowButton" disabled>Wie war's tatsächlich?</button>
+        </div>
+        <div id="refreshButton" class="actionContainerRefresh">
+          <button>Rückgängig</button>
+        </div>
+        <div class="text" id="resultText">
+          {{ question.result|md }}
+        </div>
+      </div>
+      <script>
+      window.ydi_data = window.ydi_data || {};
+      window.ydi_data['{{ question.key }}'] = {% autoescape false %}{{ question|json_encode }}{% endautoescape %};
+      </script>
     </div>
+  </div>
 </article>
 <script src="node_modules/d3/dist/d3.min.js"></script>
 <script src="app.js"></script>

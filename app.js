@@ -41,7 +41,7 @@ d3.selectAll('.you-draw-it').each(function() {
     top: 40,
     right: 5,
     bottom: 40,
-    left: 50
+    left: 55
   };
 
   window.addEventListener('resize', () => {
