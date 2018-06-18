@@ -172,7 +172,8 @@ d3.selectAll('.you-draw-it').each(function() {
   c.xAxis.tickFormat(d => String(d).substr(2)).ticks(10, maxYear - minYear);
   c.yAxis = d3.axisLeft().scale(c.y);
   // 2000 => steps on y-axis (TODO)
-  c.yAxis.tickFormat(d => String(d).substr(0)).ticks(graphMaxY/2000);
+  // we would like to have the axis styling without the labels (TODO)
+  c.yAxis.tickFormat(d => String(d).substr(0,0)).ticks(graphMaxY/2000);
   drawAxis(c);
 
   c.titles = sel.append('div')
