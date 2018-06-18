@@ -41,7 +41,7 @@ d3.selectAll('.you-draw-it').each(function() {
     top: 40,
     right: 5,
     bottom: 40,
-    left: 55
+    left: 30
   };
 
   window.addEventListener('resize', () => {
@@ -57,8 +57,9 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // configure scales
   const graphMinY = Math.min(minY, 0);
+  // TODO check calc
   // add 20% for segment titles (not currently used)
-  let graphMaxY = Math.max(indexedData[medianYear] * 2, maxY + (maxY - graphMinY) * 0.2);
+  let graphMaxY = Math.max(indexedData[medianYear] * 1.8, maxY + (maxY - graphMinY) * 0.2);
   // round down to the nearest thousand
   graphMaxY = Math.round(graphMaxY/1000)*1000;
   c.x = d3.scaleLinear().range([0, c.width]);
@@ -79,8 +80,8 @@ d3.selectAll('.you-draw-it').each(function() {
     .attr("class", "y label")
     .attr("text-anchor", "top")
     .attr("y", -20)
-    .attr("x", -50)
-    .text("Anzahl der Ärzte");
+    .attr("x", -25)
+    .text("Anzahl der Ärzte (in Tsd.)");
 
   c.svg.append("text")
     .attr("class", "x label")
@@ -266,6 +267,7 @@ d3.selectAll('.you-draw-it').each(function() {
   // quick fix (TODO)
   document.getElementById('refreshButton').onclick = function(event) {
     window.location.reload();
+    // document.getElementById('rbb-datateam-you-draw-it').contentWindow.location.reload();
   }
 
   // function removeResultChart() {
@@ -328,6 +330,39 @@ d3.selectAll('.you-draw-it').each(function() {
       .attr("class", "x axis")
       .attr("transform", "translate(0," + c.height + ")")
       .call(c.xAxis);
+
+      c.axis.append('text')
+      .text("0")
+      .attr('transform', "translate(-18, " + (c.y(0)+5) + ")");
+
+    c.axis.append('text')
+      .text("2")
+      .attr('transform', "translate(-18, " + (c.y(2000)+5) + ")");
+
+    c.axis.append('text')
+      .text("4")
+      .attr('transform', "translate(-18, " + (c.y(4000)+5) + ")");
+
+    c.axis.append('text')
+      .text("6")
+      .attr('transform', "translate(-18, " + (c.y(6000)+5) + ")");
+
+    c.axis.append('text')
+      .text("8")
+      .attr('transform', "translate(-18, " + (c.y(8000)+5) + ")");
+
+    c.axis.append('text')
+      .text("10")
+      .attr('transform', "translate(-26, " + (c.y(10000)+5) + ")");
+
+    c.axis.append('text')
+      .text("12")
+      .attr('transform', "translate(-26, " + (c.y(12000)+5) + ")");
+
+    c.axis.append('text')
+      .text("14")
+      .attr('transform', "translate(-26 , " + (c.y(14000)+5) + ")");
+
     c.axis.append('g')
       .attr("class", "y axis")
       .call(c.yAxis);
