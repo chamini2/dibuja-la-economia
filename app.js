@@ -266,10 +266,10 @@ d3.selectAll('.you-draw-it').each(function() {
   resultSection.select('button').on('click', showResultChart);
 
   // quick fix (TODO)
-  document.getElementById('refreshButton').onclick = function(event) {
-    // window.location.reload();
-    document.getElementById('rbb-datateam-you-draw-it').src += '';
-  }
+  // document.getElementById('refreshButton').onclick = function(event) {
+  //   // window.location.reload();
+  //   document.getElementById('rbb-datateam-you-draw-it').src += '';
+  // }
 
   // function removeResultChart() {
   //   // restore untouched state
