@@ -267,8 +267,8 @@ d3.selectAll('.you-draw-it').each(function() {
 
   // quick fix (TODO)
   document.getElementById('refreshButton').onclick = function(event) {
-    window.location.reload();
-    // document.getElementById('rbb-datateam-you-draw-it').contentWindow.location.reload();
+    // window.location.reload();
+    document.getElementById('rbb-datateam-you-draw-it').contentWindow.location.reload();
   }
 
   // function removeResultChart() {
