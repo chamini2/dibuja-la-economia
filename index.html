@@ -23,7 +23,7 @@
           <button id="actionContainerShowButton" disabled>Wie war's tatsächlich?</button>
         </div>
         <div id="refreshButton" class="actionContainerRefresh">
-          <button onclick="self.location.reload();">Rückgängig</button>
+          <button onclick="document.location.reload(true);">Rückgängig</button>
         </div>
         <div class="text" id="resultText">
           {{ question.result|md }}
