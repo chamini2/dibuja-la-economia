@@ -1,0 +1,32 @@
+subheading: Under President Obama, the unemployment rate...
+result: >
+        **...reached its lowest level since 2007. The current rate is a stunning decline from the 9.3 percent in 2009, the year Mr. Obama took office.**
+data:
+  2000: 4
+  2001: 4.8
+  2002: 5.7
+  2004: 5.4
+  2003: 6
+  2005: 5.1
+  2006: 4.7
+  2007: 4.7
+  2008: 5.8
+  2009: 9.3
+  2010: 9.6
+  2011: 8.9
+  2012: 8.1
+  2013: 7.3
+  2014: 6
+  2015: 5.4
+  2016: 4.9
+unit: "%"
+precision: 1
+sourceUrl: https://www.nytimes.com/interactive/2017/01/15/us/politics/you-draw-obama-legacy.html
+source: The New York Times
+valuesAxis:
+  label: Unemployment rate
+  min: 0
+  max: 10
+yearsAxis:
+  label: Year
+  lines: [{ year: 2004 }, { year: 2008 }, { year: 2012 }, { year: 2016 }]
