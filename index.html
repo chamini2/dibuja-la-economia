@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-    <title>Was schätzen Sie?</title>
+    <title>You Draw It</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, minimum-scale=1.0"/>
     <link rel="stylesheet" href="styles/main.css">
@@ -15,15 +15,12 @@
       <div class="you-draw-it {{ question.key }}" data-key="{{ question.key }}"></div>
       <div class="clearfix">
         <div style="float: right; font-size: 0.8rem; margin-top: 0.5rem;" class="clearfix">
-          Quelle: <a style="text-decoration:none; color:#E31818;" href="{{ question.sourceUrl }}" target="_blank">{{ question.source }}</a>
+          Source: <a style="text-decoration:none; color:#E31818;" href="{{ question.sourceUrl }}" target="_blank">{{ question.source }}</a>
         </div>
       </div>
       <div class="result {{ question.key }}">
         <div class="actionContainerShow">
-          <button id="actionContainerShowButton" disabled>Wie war's tatsächlich?</button>
-        </div>
-        <div id="refreshButton" class="actionContainerRefresh">
-          <button onclick="document.location.reload(true);">Rückgängig</button>
+          <button id="button-{{ question.key }}" disabled>Show me how I did</button>
         </div>
         <div class="text" id="resultText">
           {{ question.result|md }}
@@ -37,6 +34,7 @@
   </div>
 </article>
 <script src="node_modules/d3/dist/d3.min.js"></script>
+<script src="node_modules/lodash/lodash.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
