@@ -45,8 +45,15 @@ function drawAll() {
     const question = basic.question;
     const resultSel = basic.resultSel;
 
+    const LOG = question.log;
+
     const indexedData = question.data;
-    const data = Object.keys(indexedData).sort().map(key => ({ year: Number(key), value: indexedData[key] }));
+    const data = Object.keys(indexedData).sort().map(key => {
+      const original = indexedData[key];
+      const value = LOG ? Math.log(original) : original;
+      indexedData[key] = { value: value, label: original };
+      return { year: Number(key), value: value, label: original };
+    });
 
     if (!state[key]) {
       state[key] = {};
@@ -58,7 +65,8 @@ function drawAll() {
     const periods = question.yearsAxis.lines;
 
     // position for starting to draw
-    const medianYear = data[Math.floor(data.length / 2)].year;
+    const medianIndex = Math.floor(data.length / 2);
+    const medianYear = data[medianIndex].year;
 
     // min and max values of used data
     const minValue = question.valuesAxis.min || d3.min(data, d => d.value);
@@ -84,7 +92,7 @@ function drawAll() {
     const graphMinY = Math.min(minValue, 0);
     // TODO check calc
     // add 20% for segment titles (not currently used)
-    let graphMaxY = Math.max(indexedData[medianYear] * 1.8, maxValue + (maxValue - graphMinY) * 0.2);
+    let graphMaxY = Math.max(indexedData[medianYear].value * 1.8, maxValue + (maxValue - graphMinY) * 0.2);
 
     c.x = d3.scaleLinear().range([0, c.width]);
     c.x.domain([minYear, maxYear]);
@@ -152,7 +160,6 @@ function drawAll() {
 
     c.grid.append('g').attr('class', 'vertical').call(
       d3.axisLeft(c.y)
-        .tickValues(c.y.ticks(graphMaxY/2000))
         .tickFormat("")
         .tickSize(-c.width)
       );
@@ -182,9 +189,9 @@ function drawAll() {
       .attr('class', 'preview-line')
       .attr('marker-end', 'url(#preview-arrow)')
       .attr('x1', c.x(medianYear))
-      .attr('y1', c.y(indexedData[medianYear]))
+      .attr('y1', c.y(indexedData[medianYear].value))
       .attr('x2', c.x(medianYear) + 100)
-      .attr('y2', c.y(indexedData[medianYear]));
+      .attr('y2', c.y(indexedData[medianYear].value));
 
     const userSel = c.svg.append('path').attr('class', 'your-line');
 
@@ -208,10 +215,6 @@ function drawAll() {
       .attr('class', 'controls')
       .call(applyMargin)
       .style('padding-left', c.x(medianYear) + 'px');
-
-    c.controls.append('div')
-      .attr('class', 'box')
-      .text('Obama years');
 
     // make chart
     const charts = periods.map((entry, key) => {
@@ -271,7 +274,8 @@ function drawAll() {
     if (!state[key].yourData) {
       state[key].yourData = data.map(d => ({
         year: d.year,
-        value: indexedData[medianYear],
+        value: indexedData[medianYear].value,
+        label: indexedData[medianYear].label,
         defined: 0
       }))
       .filter(d => {
@@ -374,8 +378,8 @@ function drawAll() {
 
     function makeLabel(pos, addClass) {
       const x = c.x(pos);
-      const y = c.y(indexedData[pos]);
-      const text = formatValue(indexedData[pos]);
+      const y = c.y(indexedData[pos].value);
+      const text = formatValue(indexedData[pos].label);
 
       const label = c.labels.append('div')
         .classed('data-label', true)
@@ -439,7 +443,7 @@ function drawAll() {
         .style('top', r => c.y(r.value) + 'px')
         .html('')
         .append('span')
-        .text(r => formatValue(r.value, 0));
+        .text(r => formatValue(r.label, 0));
     }
 
     function clamp(a, b, c) {
@@ -457,6 +461,7 @@ function drawAll() {
         if (d.year > medianYear) {
           if (Math.abs(d.year - year) < .5) {
             d.value = value;
+            d.label = LOG ? Math.exp(value) : value;
           }
           if (d.year - year < 0.5) {
             d.defined = true
