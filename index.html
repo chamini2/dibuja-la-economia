@@ -9,7 +9,7 @@
 <body>
 <article id="content" class="container">
   <div class="questions">
-    {% for question in data %}
+  {% for question in data %}
     <div class="question">
       <h3>{{ question.subheading|mdi }}</h3>
       <div class="you-draw-it {{ question.key }}" data-key="{{ question.key }}"></div>
@@ -31,6 +31,7 @@
       window.ydi_data['{{ question.key }}'] = {% autoescape false %}{{ question|json_encode }}{% endautoescape %};
       </script>
     </div>
+  {% endfor %}
   </div>
 </article>
 <script src="node_modules/d3/dist/d3.min.js"></script>
