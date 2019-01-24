@@ -47,9 +47,9 @@ function drawAll() {
 
     const LOG = question.log;
 
-    const indexedData = question.data;
-    const data = Object.keys(indexedData).sort().map(key => {
-      const original = indexedData[key];
+    const indexedData = {};
+    const data = Object.keys(question.data).sort().map(key => {
+      const original = question.data[key];
       const value = LOG ? Math.log(original) : original;
       indexedData[key] = { value: value, label: original };
       return { year: Number(key), value: value, label: original };
