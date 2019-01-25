@@ -1,0 +1,36 @@
+subheading: La producción petrolera...
+result: >
+        **..Pan pan pan.**
+data:
+  1999: 2800.4
+  2000: 2891
+  2001: 2791.904
+  2002: 2782
+  2003: 2643
+  2004: 3009.4
+  2005: 3066.8
+  2006: 3035.6
+  2007: 2981.923
+  2008: 2957.536
+  2009: 2878.06
+  2010: 2853.638
+  2011: 2880.907
+  2012: 2803.93
+  2013: 2789.486
+  2014: 2682.633
+  2015: 2653.871
+  2016: 2154
+  2017: 1927
+  2018: 1339
+unit: "kB/D"
+precision: 1
+sourceUrl: #
+source: DESCONOCIDO
+log: false
+valuesAxis:
+  label: Miles de barriles diarios
+  min: 0
+  max: null
+yearsAxis:
+  label: Año
+  lines: [{ year: 2003 }, { year: 2007 }, { year: 2011 }, { year: 2015 }, { year: 2018 }]

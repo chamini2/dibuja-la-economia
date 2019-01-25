@@ -24,13 +24,13 @@ data:
   2018: 1698488.20
 unit: "%"
 precision: 1
-sourceUrl:
+sourceUrl: #
 source: DESCONOCIDO
 log: true
 valuesAxis:
-  label: VAR %
+  label: Variación (escala logarítmica)
   min: 0
   max: null
 yearsAxis:
-  label: AÑO
+  label: Año
   lines: [{ year: 2003 }, { year: 2007 }, { year: 2011 }, { year: 2015 }, { year: 2018 }]
