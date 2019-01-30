@@ -5,7 +5,7 @@ const DRAW_SELECTOR = '.you-draw-it';
 function basicData(elem) {
   const key = elem.dataset.key;
 
-  return { 
+  return {
     key: key,
     question: window.ydi_data[key],
     sel: d3.select(elem),
@@ -62,17 +62,22 @@ function drawAll() {
     const minYear = data[0].year;
     const maxYear = data[data.length - 1].year;
 
-    const periods = question.yearsAxis.lines;
+    const periodsX = question.yearsAxis.lines;
+    const periodsY = question.valuesAxis.lines || [];
 
     // position for starting to draw
     const medianIndex = Math.floor(data.length / 2);
     const medianYear = data[medianIndex].year;
 
-    // min and max values of used data
-    const minValue = question.valuesAxis.min || d3.min(data, d => d.value);
-    const maxValue = question.valuesAxis.max || d3.max(data, d => d.value);
+    function margin10(value, up) {
+      return (value > 0) == up ? value * 1.1 : value * 0.9;
+    }
+    // min and max values of used data, add 10% of margin
+    const minValue = question.valuesAxis.min || margin10(d3.min(data, d => d.value), false);
+    const maxValue = question.valuesAxis.max || margin10(d3.max(data, d => d.value), true);
 
-    const segmentBorders = [minYear].concat(periods.map(d => d.year));
+    const segmentBordersX = [minYear].concat(periodsX.map(d => d.year));
+    const segmentBodersY = periodsY.map(d => d.value);
 
     const margin = {
       top: 40,
@@ -90,13 +95,16 @@ function drawAll() {
 
     // configure scales
     const graphMinY = Math.min(minValue, 0);
-    // TODO check calc
-    // add 20% for segment titles (not currently used)
-    let graphMaxY = Math.max(indexedData[medianYear].value * 1.8, maxValue + (maxValue - graphMinY) * 0.2);
+    const graphMaxY = maxValue;
 
     c.x = d3.scaleLinear().range([0, c.width]);
     c.x.domain([minYear, maxYear]);
-    c.y = d3.scaleLinear().range([c.height, 0]);
+
+    // if (LOG) {
+    //   c.y = d3.scaleLog().range([c.height, 0]);
+    // } else {
+      c.y = d3.scaleLinear().range([c.height, 0]);
+    // }
     c.y.domain([graphMinY, graphMaxY]);
 
     c.svg = sel.append('svg')
@@ -156,13 +164,16 @@ function drawAll() {
       )
       // lines to show segments
       .selectAll('line')
-      .attr('class', (d, i) => segmentBorders.indexOf(d) !== -1 ? 'highlight' : '');
+      .attr('class', (d, i) => segmentBordersX.indexOf(d) !== -1 ? 'highlight' : '');
 
     c.grid.append('g').attr('class', 'vertical').call(
       d3.axisLeft(c.y)
         .tickFormat("")
         .tickSize(-c.width)
-      );
+      )
+      // lines to show segments
+      .selectAll('line')
+      .attr('class', (d, i) => segmentBodersY.indexOf(d) !== -1 ? 'highlight' : '');
 
     // invisible rect to make dragging work
     const dragArea = c.svg.append('rect')
@@ -201,10 +212,7 @@ function drawAll() {
     c.xAxis = d3.axisBottom().scale(c.x);
     // formats year
     c.xAxis.tickFormat(d => String(d).substr(2)).ticks(10, maxYear - minYear);
-    c.yAxis = d3.axisLeft().scale(c.y);
-    // 2000 => steps on y-axis (TODO)
-    // we would like to have the axis styling without the labels (TODO)
-    c.yAxis.tickFormat(d => String(d).substr(0,0)).ticks(graphMaxY/2000);
+    c.yAxis = d3.axisLeft().scale(LOG ? c.y : c.y); // TODO: LOG case
     drawAxis(c);
 
     c.titles = sel.append('div')
@@ -217,15 +225,14 @@ function drawAll() {
       .style('padding-left', c.x(medianYear) + 'px');
 
     // make chart
-    const charts = periods.map((entry, key) => {
-      const lower = key > 0 ? periods[key - 1].year : minYear;
+    const charts = periodsX.map((entry, key) => {
+      const lower = key > 0 ? periodsX[key - 1].year : minYear;
       const upper = entry.year;
 
       // segment title
       c.titles.append('span')
         .style('left', c.x(lower) + 'px')
-        .style('width', c.x(upper) - c.x(lower) + 'px')
-        .text(entry.title || entry.year);
+        .style('width', c.x(upper) - c.x(lower) + 'px');
 
       return drawChart(lower, upper, entry.class || 'black');
     });
@@ -325,38 +332,6 @@ function drawAll() {
         .attr("class", "x axis")
         .attr("transform", "translate(0," + c.height + ")")
         .call(c.xAxis);
-
-        c.axis.append('text')
-        .text("0")
-        .attr('transform', "translate(-18, " + (c.y(0)+5) + ")");
-
-      c.axis.append('text')
-        .text("2")
-        .attr('transform', "translate(-18, " + (c.y(2000)+5) + ")");
-
-      c.axis.append('text')
-        .text("4")
-        .attr('transform', "translate(-18, " + (c.y(4000)+5) + ")");
-
-      c.axis.append('text')
-        .text("6")
-        .attr('transform', "translate(-18, " + (c.y(6000)+5) + ")");
-
-      c.axis.append('text')
-        .text("8")
-        .attr('transform', "translate(-18, " + (c.y(8000)+5) + ")");
-
-      c.axis.append('text')
-        .text("10")
-        .attr('transform', "translate(-26, " + (c.y(10000)+5) + ")");
-
-      c.axis.append('text')
-        .text("12")
-        .attr('transform', "translate(-26, " + (c.y(12000)+5) + ")");
-
-      c.axis.append('text')
-        .text("14")
-        .attr('transform', "translate(-26 , " + (c.y(14000)+5) + ")");
 
       c.axis.append('g')
         .attr("class", "y axis")
