@@ -1,0 +1,35 @@
+subheading: La deuda financiera...
+result: >
+        **..Pan pan pan.*
+data:
+  1999: 19305.981
+  2000: 18543.63
+  2001: 19474.212
+  2002: 18874.966
+  2003: 20578.775
+  2004: 21120.19
+  2005: 25528.19
+  2006: 21437.645
+  2007: 29812.686
+  2008: 32367.491
+  2009: 43632.844
+  2010: 49652.153
+  2011: 64414.194
+  2012: 67414.194
+  2013: 64660.671
+  2014: 70846.671
+  2015: 66073.671
+  2016: 68020.614
+  2017: 68728
+unit: "$MM"
+precision: 1
+sourceUrl: #
+source: DESCONOCIDO
+log: false
+valuesAxis:
+  label: Miles de millones de dólares
+  min: null
+  max: null
+yearsAxis:
+  label: Año
+  lines: [{ year: 2003 }, { year: 2007 }, { year: 2011 }, { year: 2015 }, { year: 2017 }]

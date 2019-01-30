@@ -31,6 +31,7 @@ valuesAxis:
   label: Variación
   min: -30
   max: 30
+  lines: [{ value: 0 }]
 yearsAxis:
   label: Año
   lines: [{ year: 2003 }, { year: 2007 }, { year: 2011 }, { year: 2015 }, { year: 2018 }]

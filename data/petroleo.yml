@@ -29,7 +29,7 @@ source: DESCONOCIDO
 log: false
 valuesAxis:
   label: Miles de barriles diarios
-  min: 0
+  min: "0"
   max: null
 yearsAxis:
   label: Año
