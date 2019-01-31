@@ -50,9 +50,9 @@ function drawAll() {
     const indexedData = {};
     const data = Object.keys(question.data).sort().map(key => {
       const original = question.data[key];
-      const value = LOG ? Math.log(original) : original;
-      indexedData[key] = { value: value, label: original };
-      return { year: Number(key), value: value, label: original };
+      const value = original;
+      indexedData[key] = { value: original, label: original };
+      return { year: Number(key), value: original, label: original };
     });
 
     if (!state[key]) {
@@ -70,7 +70,8 @@ function drawAll() {
     const medianYear = data[medianIndex].year;
 
     function margin10(value, up) {
-      return (value > 0) == up ? value * 1.1 : value * 0.9;
+      const factor = (value > 0) == up ? 1.1 : 0.9;
+      return value * factor;
     }
     // min and max values of used data, add 10% of margin
     const minValue = question.valuesAxis.min || margin10(d3.min(data, d => d.value), false);
@@ -94,17 +95,17 @@ function drawAll() {
     };
 
     // configure scales
-    const graphMinY = Math.min(minValue, 0);
+    const graphMinY = minValue;
     const graphMaxY = maxValue;
 
     c.x = d3.scaleLinear().range([0, c.width]);
     c.x.domain([minYear, maxYear]);
 
-    // if (LOG) {
-    //   c.y = d3.scaleLog().range([c.height, 0]);
-    // } else {
+    if (LOG) {
+      c.y = d3.scaleLog().range([c.height, 0]);
+    } else {
       c.y = d3.scaleLinear().range([c.height, 0]);
-    // }
+    }
     c.y.domain([graphMinY, graphMaxY]);
 
     c.svg = sel.append('svg')
@@ -210,9 +211,12 @@ function drawAll() {
 
     // configure axes
     c.xAxis = d3.axisBottom().scale(c.x);
-    // formats year
     c.xAxis.tickFormat(d => String(d).substr(2)).ticks(10, maxYear - minYear);
-    c.yAxis = d3.axisLeft().scale(LOG ? c.y : c.y); // TODO: LOG case
+
+    c.yAxis = d3.axisLeft().scale(c.y);
+    if (LOG) {
+      c.yAxis.tickFormat(d => Math.log10(d) % 1 == 0 ? String(d) : "")
+    }
     drawAxis(c);
 
     c.titles = sel.append('div')
@@ -436,7 +440,7 @@ function drawAll() {
         if (d.year > medianYear) {
           if (Math.abs(d.year - year) < .5) {
             d.value = value;
-            d.label = LOG ? Math.exp(value) : value;
+            d.label = value;
           }
           if (d.year - year < 0.5) {
             d.defined = true

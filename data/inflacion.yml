@@ -29,7 +29,7 @@ source: DESCONOCIDO
 log: true
 valuesAxis:
   label: Variación (escala logarítmica)
-  min: 0
+  min: 0.1
   max: null
 yearsAxis:
   label: Año
