@@ -343,9 +343,14 @@ function drawAll() {
     }
 
     function formatValue(val, defaultPrecision) {
-      const data = question.precision >= 0 ?
-        Number(val).toFixed(question.precision) :
-        defaultPrecision ? Number(val).toFixed(defaultPrecision) : val;
+      let data = question.precision >= 0
+        ? Number(val).toFixed(question.precision)
+        : defaultPrecision
+          ? Number(val).toFixed(defaultPrecision)
+          : val;
+
+      // dots for thousands, commas for decimals
+      data = data.toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
 
       // don't show label text for unit (specified in yml file) if screensize is below 600
       const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
