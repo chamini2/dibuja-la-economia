@@ -490,4 +490,4 @@ drawAll();
 window.addEventListener('resize', _.debounce(() => {
   removeAll();
   drawAll();
-}, 100))
+}, 100));
