@@ -1,6 +1,7 @@
-subheading: El producto interno bruto...
+subheading: Durante 20 años de chavismo, el producto interno bruto...
 result: >
-        **..Pan pan pan.**
+        Desde 2013 hasta 2018, Venezuela perdió 46% de su Producto Interno Bruto.
+        La economía del país se contrajo a la mitad en cinco años.
 data:
   1999: -6
   2000: 3.7
@@ -24,8 +25,8 @@ data:
   2018: -18
 unit: "%"
 precision: 1
-sourceUrl: #
-source: DESCONOCIDO
+sourceUrl:
+source: Banco Mundial.
 log: false
 valuesAxis:
   label: Variación

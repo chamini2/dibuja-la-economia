@@ -1,6 +1,9 @@
-subheading: La producción petrolera...
+subheading: Durante 20 años de chavismo, la producción petrolera...
 result: >
-        **..Pan pan pan.**
+        La producción petrolera venezolana cayó a los niveles de hace 60 años.
+        En 2018, Venezuela produjo 1,339 millones de barriles diarios en promedio.
+        En 1948 se producían 1,367 millones.
+        En los últimos 20 años se perdió 52% de la producción.
 data:
   1999: 2800.4
   2000: 2891
@@ -24,13 +27,13 @@ data:
   2018: 1339
 unit: "kB/D"
 precision: 1
-sourceUrl: #
-source: DESCONOCIDO
+sourceUrl:
+source: Organización de Países Exportadores de Petróleo (OPEP).
 log: false
 valuesAxis:
   label: Miles de barriles diarios
-  min: "0"
-  max: null
+  min: 0
+  max: 5000
 yearsAxis:
   label: Año
   lines: [{ year: 2003 }, { year: 2007 }, { year: 2011 }, { year: 2015 }, { year: 2018 }]

@@ -1,6 +1,9 @@
-subheading: La inflación...
+subheading: Durante 20 años de chavismo, la tasa de inflación anual...
 result: >
-        **..Pan pan pan.**
+        El año 2018 cerró con 1.698.488,2% de inflación anual, el máximo histórico.
+        Desde 2016, Venezuela tiene la inflación más alta del mundo.
+        Es el único país en hiperinflación y el segundo que sufre el fenómeno
+        en el siglo XXI después de Zimbabue.
 data:
   1999: 20.3
   2000: 13.43
@@ -24,13 +27,13 @@ data:
   2018: 1698488.20
 unit: "%"
 precision: 1
-sourceUrl: #
-source: DESCONOCIDO
+sourceUrl:
+source: Asamblea Nacional de Venezuela.
 log: true
 valuesAxis:
   label: Variación (escala logarítmica)
-  min: 0.1
-  max: null
+  min: 1
+  max: 2000000
 yearsAxis:
   label: Año
   lines: [{ year: 2003 }, { year: 2007 }, { year: 2011 }, { year: 2015 }, { year: 2018 }]
