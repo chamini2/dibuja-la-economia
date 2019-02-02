@@ -69,13 +69,17 @@ function drawAll() {
     const medianIndex = Math.floor(data.length / 2);
     const medianYear = data[medianIndex].year;
 
-    function margin10(value, up) {
-      const factor = (value > 0) == up ? 1.1 : 0.9;
-      return value * factor;
+    function margin10(set, value, up) {
+      if (_.isNil(set)) {
+        const factor = (value > 0) == up ? 1.1 : 0.9;
+        return value * factor;
+      } else {
+        return set;
+      }
     }
     // min and max values of used data, add 10% of margin
-    const minValue = question.valuesAxis.min || margin10(d3.min(data, d => d.value), false);
-    const maxValue = question.valuesAxis.max || margin10(d3.max(data, d => d.value), true);
+    const minValue = margin10(question.valuesAxis.min, d3.min(data, d => d.value), false);
+    const maxValue = margin10(question.valuesAxis.max, d3.max(data, d => d.value), true);
 
     const segmentBordersX = [minYear].concat(periodsX.map(d => d.year));
     const segmentBodersY = periodsY.map(d => d.value);

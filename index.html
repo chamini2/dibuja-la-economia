@@ -15,7 +15,12 @@
       <div class="you-draw-it {{ question.key }}" data-key="{{ question.key }}"></div>
       <div class="clearfix">
         <div style="float: right; font-size: 0.8rem; margin-top: 0.5rem;" class="clearfix">
-          Fuente: <a style="text-decoration:none; color:#E31818;" href="{{ question.sourceUrl }}" target="_blank">{{ question.source }}</a>
+          Fuente:
+          {% if question.sourceUrl %}
+            <a style="text-decoration:none; color:#E31818;" href="{{ question.sourceUrl }}" target="_blank">{{ question.source }}</a>
+          {% else %}
+            <span>{{ question.source }}</span>
+          {% endif %}
         </div>
       </div>
       <div class="result {{ question.key }}">
