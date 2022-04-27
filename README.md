@@ -1,4 +1,4 @@
-Project for Prodavinci Article about economics of Venezuela http://factor.prodavinci.com/dibujalaeconomia/index.html
+Project for Prodavinci Article about economics of Venezuela: [Dibújalo: la economía en 20 años de chavismo](http://factor.prodavinci.com/dibujalaeconomia/)
 
 # Development
 
