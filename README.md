@@ -1,17 +1,22 @@
-# you-draw-it
-
 Project for Prodavinci Article about economics of Venezuela http://factor.prodavinci.com/dibujalaeconomia/index.html
-
 
 # Development
 
-## Getting started
+```
+$ node --version
+v12.22.12
+
+$ npm --version
+6.14.16
+```
+
+Install dependencies
 
 ```
 npm install
 ```
 
-## Start dev server
+And start the server
 
 ```
 gulp serve
